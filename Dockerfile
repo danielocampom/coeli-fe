@@ -19,7 +19,7 @@ COPY . /app/
 RUN npm run build
 
 # Expone el puerto 8080
-EXPOSE 8080
+EXPOSE 8089
 
 # Inicia la aplicación
 CMD ["npm", "run", "serve"]
