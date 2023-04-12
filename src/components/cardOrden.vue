@@ -40,13 +40,13 @@
                         </b-list-group-item>
                     </b-list-group>
     
-                    <b-list-group>
+                    <!-- <b-list-group>
                         <b-list-group-item> 
                             <vs-button success block @click="print = !print">
                                 Imprimir
                             </vs-button>
                         </b-list-group-item>
-                    </b-list-group>
+                    </b-list-group> -->
                     <footer>
                     <vs-button @click="opciones=false" danger block>
                         Cancel

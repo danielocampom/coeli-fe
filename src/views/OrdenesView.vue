@@ -5,12 +5,65 @@
     
         <b-container fluid class="mt-5">
             <template>
-                <b-row cols="1" cols-sm="12" cols-md="6" cols-lg="4">
-                    <b-col class="mt-4" v-for="(orden, i) in dataOrden" :key="i" >
-                        <CardOrdenComponent @updatePage="updatePage" :dataClient="{id: orden.idCliente, nombreEstado: orden.nombreEstado, prendas: orden.prendas, idOrden: orden.idOrden, estado: orden.estado, fecha: orden.fechaEntrega}"></CardOrdenComponent>
+                <b-row>
+                    <b-col>
+                        <b-card style="max-width: 600px;" class="mb-4 p-2" >
+                            <b-row>
+                                <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
+                                    <vs-input
+                                        type="date"
+                                        v-model="fechInicio"
+                                        label-placeholder="Fecha Inicio"
+                                    />
+                                </b-col>
+                                <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
+                                    <vs-input
+                                        type="date"
+                                        v-model="fechFinal"
+                                        label-placeholder="Fecha Final"
+                                    />
+                                </b-col>
+                                <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
+                                    <vs-button
+                                        class="p-0"
+                                        block
+                                        flat
+                                        primary 
+                                    >
+                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                    </vs-button>
+                                </b-col>
+                            </b-row>
+                            <b-row>
+                                <b-col lg="8" md="6" sm="12"  class="mt-4 p-0">
+                                    <vs-input state="dark" @keyup="buscar()" dark v-model="buscarNombre" label-placeholder="Buscar por nombre">
+                                        <template #icon>
+                                            <box-icon name='map-pin' dark></box-icon> 
+                                        </template>
+                                    </vs-input>
+                                </b-col>
+                                <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
+                                    <vs-button
+                                        class="p-0"
+                                        block
+                                        flat
+                                        primary 
+                                    >
+                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                    </vs-button>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
                 </b-row>
             </template>
+        </b-container>
+        <b-container fluid class="mt-5">
+            <b-row class="mt-3">
+                    <b-col lg="3" md="6" sm="12" class="mt-4" v-for="(orden, i) in dataOrden" :key="i" >
+                        <CardOrdenComponent @updatePage="updatePage" :dataClient="{id: orden.idCliente, nombreEstado: orden.nombreEstado, prendas: orden.prendas, idOrden: orden.idOrden, estado: orden.estado, fecha: orden.fechaEntrega}"></CardOrdenComponent>
+                    </b-col>
+                </b-row>
         </b-container>
         <div v-if="activarReboot">
             <loginComponent :login="activarReboot"></loginComponent>

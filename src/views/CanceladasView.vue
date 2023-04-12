@@ -4,36 +4,34 @@
         <br>
         <b-container fluid class="mt-3">
             <template>
-                <b-row>
-                    <b-col class="mt-4  centerAll" lg="4" md="12" sm="12">
-                        <b-card  style="max-width: 540px;" class="mt-5">
-                            <b-row>
-                                <b-col class="mt-3">
-                                    <vs-input
-                                        type="date"
-                                        v-model="fechInicio"
-                                        label-placeholder="Fecha Inicio"
-                                    />
-                                </b-col>
-                                <b-col class="mt-3">
-                                    <vs-input
-                                        type="date"
-                                        v-model="fechFinal"
-                                        label-placeholder="Fecha Final"
-                                    />
-                                </b-col>
-                                <b-col class="mt-3">
-                                    <vs-button
-                                        transparent 
-                                        @click="mostrarOrdenes()"
-                                    >
-                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                    </vs-button>
-                                </b-col>
-                            </b-row>
-                        </b-card>
-                    </b-col>
-                </b-row>
+                    <b-card  style="max-width: 540px;" class="mt-5">
+                        <b-row>
+                            <b-col class="mt-3">
+                                <vs-input
+                                    type="date"
+                                    v-model="fechInicio"
+                                    label-placeholder="Fecha Inicio"
+                                />
+                            </b-col>
+                            <b-col class="mt-3">
+                                <vs-input
+                                    type="date"
+                                    v-model="fechFinal"
+                                    label-placeholder="Fecha Final"
+                                />
+                            </b-col>
+                            <b-col class="mt-3">
+                                <vs-button
+                                    primary
+                                    flat
+                                    block 
+                                    @click="mostrarOrdenes()"
+                                >
+                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                </vs-button>
+                            </b-col>
+                        </b-row>
+                    </b-card>
             </template>
         </b-container>
     

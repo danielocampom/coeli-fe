@@ -18,7 +18,7 @@ const ROLES = {
   ALMACENENTRADA: 'ALMACEN ENTRADA',
   CONFIRMAORDEN: 'CONFIRMA ORDEN',
   PROCESOORDEN: 'PROCESO ORDEN',
-  ALMACENENTREGA: 'CLIENTES',
+  ALMACENENTREGA: 'ALMACEN ENTREGA',
   CANCELACION: 'CANCELACION',
   ROLES: 'ROLES',
 }
@@ -58,83 +58,90 @@ const routes = [
     path: '/dashboardAdmin',
     name: 'dashboardAdmin',
     component: () => import('../views/DashboardAdmin.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN]}
   },
   {
     path: '/usuarios',
     name: 'usuarios',
     component: () => import('../views/UsuariosView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.USUARIOS]}
   },
   {
     path: '/clientes',
     name: 'clientes',
     component: () => import('../views/ClientesView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.CLIENTES]}
   },
   {
     path: '/lavadoras',
     name: 'lavadoras',
     component: () => import('../views/LavadorasView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.LAVADORA]}
   },
   {
     path: '/tipoLavados',
     name: 'tipoLavados',
     component: () => import('../views/TipoLavadosView.vue'),
   LAVADORA: 'LAVADORA',
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.LAVADORA]}
   },
   {
     path: '/prendas',
     name: 'prendas',
     component: () => import('../views/PrendasView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.PRENDA]}
   },
   {
     path: '/registroLavado',
     name: 'registroLavado',
     component: () => import('../views/registroLavadoView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.PROCESOLAVADO]}
   },
 
   {
     path: '/entregas',
     name: 'entregas',
     component: () => import('../views/EntregaView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.ALMACENENTREGA]}
   },
   {
     path: '/procesoPrendas',
     name: 'procesoPrendas',
     component: () => import('../views/procesoPrendas.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.USUARIOS]}
   },
   {
     path: '/llegada',
     name: 'llegada',
     component: () => import('../views/LlegadaView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.ALMACENENTRADA]}
   },
   {
     path: '/ordenes',
     name: 'ordenes',
     component: () => import('../views/OrdenesView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.ALMACENENTRADA]}
   },
   
   {
     path: '/canceladas',
     name: 'canceladas',
     component: () => import('../views/CanceladasView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ADMIN, ROLES.CANCELACION]}
   },
   
   {
     path: '/roles',
     name: 'roles',
     component: () => import('../views/rolesView.vue'),
-    meta: {requireAuth: true, roles: ROLES.SISTEMAS}
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ROLES, ROLES.ADMIN, ROLES.ROLES]}
+  },
+  
+  {
+    path: '/rastreo',
+    name: 'rastreo',
+    component: () => import('../views/rastreoOrdenesView.vue'),
+    meta: {requireAuth: true, roles: [ROLES.SISTEMAS, ROLES.ROLES, ROLES.ADMIN, ROLES.RASTREO]}
   },
   
   {
@@ -169,6 +176,7 @@ router.beforeEach((to, from, next) => {
    
   
   const rolesUsr = router.app.$session.get('roles')
+
   if(rolesUsr.some(role =>  to.meta.roles.includes(role))){
     next()
   }else{

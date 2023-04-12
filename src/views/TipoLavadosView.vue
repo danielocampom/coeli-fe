@@ -5,59 +5,59 @@
     
         <b-container fluid class="mt-3">
             <template>
-                <b-row  class="center">
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-input state="dark" dark v-model="buscarTxt" @keyup="searchTypeWasher()" placeholder="Buscar Tipo de Lavado">
-                                    <template #icon>
-                                        <box-icon name='wind' dark ></box-icon>
-                                    </template>
-                                </vs-input>
-                                <vs-button
-                                    transparent 
-                                    :active="btnBuscar == 1"
-                                    @click="searchTypeWasher()"
-                                >
-                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                </vs-button>
-                            </template>
-                        </vs-card>
-                    </b-col>
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-button flat icon @click="activeModal=!activeModal">
-                                    <box-icon name='wind' color="#195bff"></box-icon> Agregar Tipo de Lavado
-                                </vs-button>
-                                <vs-dialog v-model="activeModal">
-                                    <template #header>
-                                    <h4 class="not-margin">
-                                        Registrar <b>Tipo de Lavado</b>
-                                    </h4>
-                                    </template>
-                        
-                                    <div class="con-form">
-                                        <vs-input success type="text" v-model="nombreLavado" placeholder="Nombre Del Lavado">
-                                            <template #icon>
-                                                <box-icon name='wind'></box-icon>
-                                            </template>
-                                        </vs-input>
+                <b-row  class="mt-5">
+                    <b-col lg="6" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mb-4 mx-auto" >
+                            <b-row class="mt-1">
+                                <b-col lg="8" md="8" sm="12"  class="p-2">
+                                    <vs-input state="dark" dark v-model="buscarTxt" @keyup="searchTypeWasher()" label-placeholder="Buscar Tipo de Lavado">
+                                        <template #icon>
+                                            <box-icon name='wind' dark ></box-icon>
+                                        </template>
+                                    </vs-input>
+                                </b-col>
+                                <b-col lg="4" md="4" sm="12"  class="p-2">
+                                    <vs-button
+                                        primary 
+                                        flat
+                                        block
+                                        :active="btnBuscar == 1"
+                                        @click="searchTypeWasher()"
+                                    >
+                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                    </vs-button>
+                                </b-col>
+                            </b-row>
+                            <vs-button block flat icon @click="activeModal=!activeModal">
+                                <box-icon name='wind' color="#195bff"></box-icon> Agregar Tipo de Lavado
+                            </vs-button>
+                            <vs-dialog v-model="activeModal">
+                                <template #header>
+                                <h4 class="not-margin">
+                                    Registrar <b>Tipo de Lavado</b>
+                                </h4>
+                                </template>
+                    
+                                <div class="con-form">
+                                    <vs-input success type="text" v-model="nombreLavado" placeholder="Nombre Del Lavado">
+                                        <template #icon>
+                                            <box-icon name='wind'></box-icon>
+                                        </template>
+                                    </vs-input>
+                                </div>
+                                <br>
+                                <template #footer>
+                                    <div class="footer-dialog">
+                                        <vs-button block success
+                                            flat
+                                            :btnGuardar="btnGuardar == 1"
+                                            @click="addTypeWasher()">
+                                            Guardar
+                                        </vs-button>
                                     </div>
-                                    <br>
-                                    <template #footer>
-                                        <div class="footer-dialog">
-                                            <vs-button block success
-                                                flat
-                                                :btnGuardar="btnGuardar == 1"
-                                                @click="addTypeWasher()">
-                                                Guardar
-                                            </vs-button>
-                                        </div>
-                                    </template>
-                                </vs-dialog>
-                            </template>
-                        </vs-card>
+                                </template>
+                            </vs-dialog>
+                        </b-card>
                     </b-col>
                 </b-row>
             </template>
@@ -282,8 +282,10 @@ input {
     place-items: center;
 }
 
-.vs-card{
-    padding: 0.5rem;
+.card{
+    border-radius: 1rem;
 }
-
+.vs-input{
+    width: 100%;
+}
 </style>

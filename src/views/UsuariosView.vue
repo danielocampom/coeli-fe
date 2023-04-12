@@ -5,101 +5,111 @@
     
         <b-container fluid class="mt-3">
             <template>
-                <b-row  class="center">
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-input state="dark" dark v-model="buscarTxt" @keyup="searchUser()" placeholder="Buscar Usuario">
-                                    <template #icon>
-                                        <box-icon name='user' dark></box-icon> 
-                                    </template>
-                                </vs-input>
-                                <vs-button
-                                    transparent 
-                                    :active="btnBuscar == 1"
-                                    @click="buscarUsr()"
-                                >
-                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                </vs-button>
-                            </template>
-                        </vs-card>
+                
+                <b-row  class="mt-5">
+                    <b-col lg="6" md="6" sm="12">
+                        <b-card  style="max-width: 400px;" class="mb-4 mx-auto" >
+                            <b-row class="mt-1">
+                                <b-col lg="8" md="8" sm="12"  class="p-1">
+                                    <vs-input state="dark" dark v-model="buscarTxt" @keyup="searchUser()" label-placeholder="Buscar Usuario">
+                                        <template #icon>
+                                            <box-icon name='user' dark></box-icon> 
+                                        </template>
+                                    </vs-input>
+                                </b-col>
+                                <b-col lg="4" md="4" sm="12"  class="p-1">
+                                    <vs-button
+                                        transparent 
+                                        block
+                                        :active="btnBuscar == 1"
+                                        @click="searchUser()"
+                                    >
+                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                    </vs-button>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-switch v-model="buscarAct" @click="mostrarActInact()">
-                                    <template #off>
-                                        <box-icon name='check'></box-icon> Activos
-                                    </template>
-                                    <template #on>
-                                        <box-icon name='x' color="#fff"></box-icon> Inactivos
-                                    </template>
-                                </vs-switch>
-                                <vs-button flat icon @click="activeModal=!activeModal">
-                                    <box-icon name='user-plus' color="#195bff"></box-icon> Agregar Usuairo
-                                </vs-button>
-                                <b-modal size="xl" centered v-model="activeModal">
-                                    <template #modal-header="{ close }">
-                                        <h5>Agregar <b>Usuario</b></h5>
-                                        <vs-button circle icon floating danger @click="close()">
-                                            <box-icon name='x' color="#fff"></box-icon>
-                                        </vs-button>
-                                    </template>
-                                    <template #header>
-                                    <h4 class="not-margin">
-                                        Registrar <b>Usuario</b>
-                                    </h4>
-                                    </template>
-                        
-                                    <div class="con-form">
-                                        <b-row>
-                                            <b-col class="mt-2" lg="12" md="12" sm="12">
-                                                <vs-input success class="mt-2" type="text" v-model="nombre" label-placeholder="Nombre Completo">
-                                                    <template #icon>
-                                                        <box-icon name='user' type='solid' ></box-icon>
-                                                    </template>
-                                                </vs-input>
-                                            </b-col>
-                                            <b-col class="mt-2" lg="6" md="12" sm="12">
-                                                <vs-input success class="mt-3" type="text" v-model="paterno" label-placeholder="Apellido Paterno">
-                                                    <template #icon>
-                                                        <box-icon name='user' type='solid' ></box-icon>
-                                                    </template>
-                                                </vs-input>
-                                            </b-col>
-                                            <b-col class="mt-2" lg="6" md="12" sm="12">
-                                                <vs-input success class="mt-3" type="text" v-model="materno" label-placeholder="Apellido Materno">
-                                                    <template #icon>
-                                                        <box-icon name='user' type='solid' ></box-icon>
-                                                    </template>
-                                                </vs-input>
-                                            </b-col>
-                                        </b-row>
-                                        
-                                        
-                                        
-                                        <div class="con-switch">
-                                          <b-row>
-                                            <b-col class="mt-3" cols="2" v-for="(rol, i) in allRoles" :key="i">
-                                              <vs-switch  :val="rol.id" v-model="optionsRoles">
-                                                {{ rol.nombre }}
-                                              </vs-switch>
-                                            </b-col>
-                                          </b-row>
+                    <b-col lg="6" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mx-auto">
+                            <b-row class="mt-1">
+                                <b-col class="p-1">
+                                    <vs-switch class="mt-3" v-model="buscarAct" @click="mostrarActInact()">
+                                        <template #off>
+                                            <box-icon name='check'></box-icon> Activos
+                                        </template>
+                                        <template #on>
+                                            <box-icon name='x' color="#fff"></box-icon> Inactivos
+                                        </template>
+                                    </vs-switch>
+                                </b-col>
+                                <b-col class="p-1">
+                                    <vs-button flat icon @click="activeModal=!activeModal">
+                                        <box-icon name='user-plus' color="#195bff"></box-icon> Agregar Usuairo
+                                    </vs-button>
+                                    <b-modal size="xl" centered v-model="activeModal">
+                                        <template #modal-header="{ close }">
+                                            <h5>Agregar <b>Usuario</b></h5>
+                                            <vs-button circle icon floating danger @click="close()">
+                                                <box-icon name='x' color="#fff"></box-icon>
+                                            </vs-button>
+                                        </template>
+                                        <template #header>
+                                        <h4 class="not-margin">
+                                            Registrar <b>Usuario</b>
+                                        </h4>
+                                        </template>
+                            
+                                        <div class="con-form">
+                                            <b-row>
+                                                <b-col class="mt-2" lg="12" md="12" sm="12">
+                                                    <vs-input success class="mt-2" type="text" v-model="nombre" label-placeholder="Nombre Completo">
+                                                        <template #icon>
+                                                            <box-icon name='user' type='solid' ></box-icon>
+                                                        </template>
+                                                    </vs-input>
+                                                </b-col>
+                                                <b-col class="mt-2" lg="6" md="12" sm="12">
+                                                    <vs-input success class="mt-3" type="text" v-model="paterno" label-placeholder="Apellido Paterno">
+                                                        <template #icon>
+                                                            <box-icon name='user' type='solid' ></box-icon>
+                                                        </template>
+                                                    </vs-input>
+                                                </b-col>
+                                                <b-col class="mt-2" lg="6" md="12" sm="12">
+                                                    <vs-input success class="mt-3" type="text" v-model="materno" label-placeholder="Apellido Materno">
+                                                        <template #icon>
+                                                            <box-icon name='user' type='solid' ></box-icon>
+                                                        </template>
+                                                    </vs-input>
+                                                </b-col>
+                                            </b-row>
+                                            
+                                            
+                                            
+                                            <div class="con-switch">
+                                              <b-row>
+                                                <b-col class="mt-3" cols="2" v-for="(rol, i) in allRoles" :key="i">
+                                                  <vs-switch  :val="rol.id" v-model="optionsRoles">
+                                                    {{ rol.nombre }}
+                                                  </vs-switch>
+                                                </b-col>
+                                              </b-row>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <br>
-                                    <template #modal-footer="{ ok }">
-                                        <vs-button :btnGuardar="btnGuardar == 1" primary @click="addUser()">
-                                            <box-icon name='save' color="#fff"></box-icon> Guardar
-                                        </vs-button>
-                                        <vs-button danger @click="ok()">
-                                            <box-icon name='exit' color="#fff"></box-icon> Salir
-                                        </vs-button>
-                                    </template>
-                                </b-modal>
-                            </template>
-                        </vs-card>
+                                        <br>
+                                        <template #modal-footer="{ ok }">
+                                            <vs-button :btnGuardar="btnGuardar == 1" primary @click="addUser()">
+                                                <box-icon name='save' color="#fff"></box-icon> Guardar
+                                            </vs-button>
+                                            <vs-button danger @click="ok()">
+                                                <box-icon name='exit' color="#fff"></box-icon> Salir
+                                            </vs-button>
+                                        </template>
+                                    </b-modal>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
                 </b-row>
             </template>
@@ -313,7 +323,6 @@
                 if(data.status == 401){ this.activarReboot = true }
                 if(data.status == 200){
                     this.usuarios = data.datos
-
                 }else{
                     this.openNotification(`Error: ${data.mensaje}`, `${data.diagnostico}`, 'danger', 'top-center',`<box-icon name='bug' color="#fff"></box-icon>`)
                 }
@@ -348,7 +357,7 @@
   input {
     width: 100%;
   }
-  .ml-5 .vs-card{
+  .ml-5 .b-card{
     margin-left: auto!important
   }
   </style>
@@ -406,9 +415,13 @@
     place-items: center;
   }
   
-  .vs-card{
-    padding: 0.5rem;
-  }
+  .card{
+    border-radius: 1rem;
+}
+.vs-input{
+    width: 100%;
+}
+
   
   </style>
   

@@ -5,286 +5,300 @@
     
         <b-container fluid class="mt-3">
             <template>
-                <b-row  class="center">
-                    <b-col class="mt-4  centerAll" lg="4" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-input state="dark" @keyup="searchWasher()" dark v-model="buscarTxt" placeholder="Buscar Lavadora">
-                                    <template #icon>
-                                        <box-icon name='wind' dark></box-icon>
-                                    </template>
-                                </vs-input>
-                                <vs-button
-                                    transparent 
-                                    :active="btnBuscar == 1"
-                                    @click="searchWasher()"
-                                >
-                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                </vs-button>
-                            </template>
-                        </vs-card>
+                <b-row  class="mt-5">
+                    <b-col lg="4" md="6" sm="12">
+                        <b-card  style="max-width: 400px;" class="mb-4 mx-auto" >
+                            <b-row class="mt-1">
+                                <b-col lg="8" md="8" sm="12"  class="p-1">
+                                    <vs-input state="dark" @keyup="searchWasher()" dark v-model="buscarTxt" label-placeholder="Buscar Lavadora">
+                                        <template #icon>
+                                            <box-icon name='wind' dark></box-icon>
+                                        </template>
+                                    </vs-input>
+                                </b-col>
+                                <b-col lg="4" md="4" sm="12"  class="p-1">
+                                    <vs-button
+                                        primary 
+                                        flat
+                                        block 
+                                        :active="btnBuscar == 1"
+                                        @click="searchWasher()"
+                                    >
+                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                    </vs-button>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
-                    <b-col class="mt-4  centerAll" lg="4" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-button flat icon @click="activeModalListLavado =! activeModalListLavado">
-                                    <box-icon name='list-ul' color="#195bff" ></box-icon> Ver Lista de Lavados
-                                </vs-button>
-                                <b-modal size="xl" centered v-model="activeModalListLavado">
-                                    <template #modal-header="{ close }">
-                                        <h5>Todos los lavados</h5>
-                                        <vs-button circle icon floating danger @click="close()">
-                                            <box-icon name='x' color="#fff"></box-icon>
-                                        </vs-button>
-                                    </template>
-                                    <template>
-                                        <b-container fluid>
-                                            <!-- User Interface controls -->
-                                            <b-row>
-
-                                            <b-col lg="6" class="my-1">
-                                                <b-form-group
-                                                label="Buscar"
-                                                label-for="filter-input"
-                                                label-cols-sm="3"
-                                                label-align-sm="right"
-                                                label-size="sm"
-                                                class="mb-0"
-                                                >
-                                                <b-input-group size="sm">
-                                                    <b-form-input
-                                                    id="filter-input"
-                                                    v-model="filter"
-                                                    type="search"
-                                                    placeholder="Buscar"
-                                                    ></b-form-input>
-
-                                                    <b-input-group-append>
-                                                    <b-button :disabled="!filter" @click="filter = ''" variant="danger">X</b-button>
-                                                    </b-input-group-append>
-                                                </b-input-group>
-                                                </b-form-group>
-                                            </b-col>
-
-                                            <b-col sm="5" md="6" class="my-1">
-                                                <b-form-group
-                                                label="registros"
-                                                label-for="per-page-select"
-                                                label-cols-sm="6"
-                                                label-cols-md="4"
-                                                label-cols-lg="3"
-                                                label-align-sm="right"
-                                                label-size="sm"
-                                                class="mb-0"
-                                                >
-                                                <b-form-select
-                                                    id="per-page-select"
-                                                    v-model="perPage"
-                                                    :options="pageOptions"
-                                                    size="sm"
-                                                ></b-form-select>
-                                                </b-form-group>
-                                            </b-col>
-
-                                            <b-col sm="7" md="6" class="my-1">
-                                                <b-pagination
-                                                v-model="currentPage"
-                                                :total-rows="totalRows"
-                                                :per-page="perPage"
-                                                align="fill"
-                                                size="sm"
-                                                class="my-0"
-                                                ></b-pagination>
-                                            </b-col>
-                                            </b-row>
-
-                                            <!-- Main table element -->
-                                            <b-table
-                                            :items="items"
-                                            :fields="fields"
-                                            :current-page="currentPage"
-                                            :per-page="perPage"
-                                            :filter="filter"
-                                            :filter-included-fields="filterOn"
-                                            :sort-by.sync="sortBy"
-                                            :sort-desc.sync="sortDesc"
-                                            :sort-direction="sortDirection"
-                                            label-sort-asc=""
-                                            label-sort-desc=""
-                                            label-sort-clear=""
-                                            stacked="md"
-                                            show-empty
-                                            small
-                                            @filtered="onFiltered"
-                                            >
-                                            <template #cell(actions)="row">
-                                                <vs-button circle icon floating danger @click="eliminarLavado(row.item.id)">
-                                                    <box-icon name='trash' color="#fff"></box-icon>
-                                                </vs-button>
-                                            </template>
-
-                                            <template #row-details="row">
-                                                <b-card>
-                                                <ul>
-                                                    <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-                                                </ul>
-                                                </b-card>
-                                            </template>
-                                            </b-table>
-
-                                        </b-container>
-                                    </template>
-                        
-                                    <template #modal-footer="{ ok }">
-                                        <vs-button danger @click="ok()">
-                                            <box-icon name='exit' color="#fff"></box-icon> Salir
-                                        </vs-button>
-                                    </template>
-                                    
-                                </b-modal>
-                                <vs-button flat icon @click="activeModalAddLavado=!activeModalAddLavado">
-                                    <box-icon name='clipboard' color="#195bff" ></box-icon> Agregar Lavado
-                                </vs-button>
-                                <vs-dialog v-model="activeModalAddLavado">
-                                    <template #header>
-                                    <h4 class="not-margin">
-                                        Registrar <b>Lavado</b>
-                                    </h4>
-                                    </template>
-                        
-                                    <div class="con-form">
-                                        <vs-input success class="mt-3" type="text" v-model="nomLavado" label-placeholder="nombre">
-                                            <template #icon>
-                                                <box-icon name='rename'></box-icon>
-                                            </template>
-                                        </vs-input>
-                                        <vs-input success class="mt-3" type="text" v-model="desLavado" label-placeholder="descripcion">
-                                            <template #icon>
-                                                <box-icon name='rename'></box-icon>
-                                            </template>
-                                        </vs-input>
-
-                                        <vs-input success class="mt-3" type="text" v-model="canMin" label-placeholder="Cantidad Minima">
-                                            <template #icon>
-                                                <box-icon name='dialpad-alt' ></box-icon>
-                                            </template>
-                                        </vs-input>
-                                        <vs-input success class="mt-3" type="text" v-model="canMax" label-placeholder="Cantidad Maxima">
-                                            <template #icon>
-                                                <box-icon name='dialpad-alt' ></box-icon>
-                                            </template>
-                                        </vs-input>
-                                    </div>
-                                    <br>
-                                    <template #footer>
-                                        <div class="footer-dialog">
-                                            <vs-button block success
-                                                flat
-                                                :btnGuardar="btnGuardar == 1"
-                                                @click="addPrograma()">
-                                                Guardar
+                    <b-col lg="4" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mb-4 mx-auto" >
+                            <b-row class="mt-1">
+                                <b-col lg="6" md="6" sm="12" class="p-1"> 
+                                    <vs-button flat block icon @click="activeModalListLavado =! activeModalListLavado">
+                                        <box-icon name='list-ul' color="#195bff" ></box-icon> Ver Lista de Lavados
+                                    </vs-button>
+                                    <b-modal size="xl" centered v-model="activeModalListLavado">
+                                        <template #modal-header="{ close }">
+                                            <h5>Todos los lavados</h5>
+                                            <vs-button circle icon floating danger @click="close()">
+                                                <box-icon name='x' color="#fff"></box-icon>
                                             </vs-button>
-                                        </div>
-                                    </template>
-                                </vs-dialog>
-                            </template>
-                        </vs-card>
-                    </b-col>
-                    <b-col class="mt-4  centerAll" lg="4" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-switch v-model="buscarAct" @click="mostrarActInact()">
-                                    <template #off>
-                                        <box-icon name='check'></box-icon> Activos
-                                    </template>
-                                    <template #on>
-                                        <box-icon name='x' color="#fff"></box-icon> Inactivos
-                                    </template>
-                                </vs-switch>
-                                <vs-button flat icon @click="activeModal=!activeModal">
-                                    <box-icon name='wind' color="#195bff" ></box-icon> Agregar Lavadora
-                                </vs-button>
-                                
-                                <b-modal size="xl" centered v-model="activeModal">
-                                    <template #modal-header="{ close }">
-                                        <h5>Agregar Lavadora</h5>
-                                        <vs-button circle icon floating danger @click="close()">
-                                            <box-icon name='x' color="#fff"></box-icon>
-                                        </vs-button>
-                                    </template>
-                                    <template>
-                                        <div class="con-form">
-                                            <b-card>
+                                        </template>
+                                        <template>
+                                            <b-container fluid>
+                                                <!-- User Interface controls -->
                                                 <b-row>
-                                                    <b-col class="mt-4" lg="6" md="6" sm="12">
-                                                        <vs-input success type="text" v-model="nombreLav" placeholder="Lavadora">
-                                                            <template #icon>
-                                                                <box-icon name='wind'></box-icon>
-                                                            </template>
-                                                        </vs-input>
-                                                    </b-col>
-                                                    <b-col class="mt-5" lg="6" md="6" sm="12">
-                                                        <div class="con-selects">
-                                                            <vs-select placeholder="Tipo de Lavado" color="success"  v-model="tipoLavado" >
-                                                                <vs-option  v-for="(lavado, i) in tiposLavado" :key="i" :label="lavado.nombre" :value="lavado.id">
-                                                                    {{lavado.nombre}}
-                                                                </vs-option>
-                                                            </vs-select>
-                                                        </div>
-                                                    </b-col>
+    
+                                                <b-col lg="6" class="my-1">
+                                                    <b-form-group
+                                                    label="Buscar"
+                                                    label-for="filter-input"
+                                                    label-cols-sm="3"
+                                                    label-align-sm="right"
+                                                    label-size="sm"
+                                                    class="mb-0"
+                                                    >
+                                                    <b-input-group size="sm">
+                                                        <b-form-input
+                                                        id="filter-input"
+                                                        v-model="filter"
+                                                        type="search"
+                                                        placeholder="Buscar"
+                                                        ></b-form-input>
+    
+                                                        <b-input-group-append>
+                                                        <b-button :disabled="!filter" @click="filter = ''" variant="danger">X</b-button>
+                                                        </b-input-group-append>
+                                                    </b-input-group>
+                                                    </b-form-group>
+                                                </b-col>
+    
+                                                <b-col sm="5" md="6" class="my-1">
+                                                    <b-form-group
+                                                    label="registros"
+                                                    label-for="per-page-select"
+                                                    label-cols-sm="6"
+                                                    label-cols-md="4"
+                                                    label-cols-lg="3"
+                                                    label-align-sm="right"
+                                                    label-size="sm"
+                                                    class="mb-0"
+                                                    >
+                                                    <b-form-select
+                                                        id="per-page-select"
+                                                        v-model="perPage"
+                                                        :options="pageOptions"
+                                                        size="sm"
+                                                    ></b-form-select>
+                                                    </b-form-group>
+                                                </b-col>
+    
+                                                <b-col sm="7" md="6" class="my-1">
+                                                    <b-pagination
+                                                    v-model="currentPage"
+                                                    :total-rows="totalRows"
+                                                    :per-page="perPage"
+                                                    align="fill"
+                                                    size="sm"
+                                                    class="my-0"
+                                                    ></b-pagination>
+                                                </b-col>
                                                 </b-row>
-                                            </b-card>
-                                            <b-row>
-                                                <b-col class="mt-4" lg="8" md="6" sm="12">
-                                                    <b-card title="Programas de Lavado" sub-title="Capacidad y programas de lavado">
-                                                        <b-row>
-                                                            <b-col class="mt-2" lg="8" md="8" sm="10">
-                                                                <vs-select placeholder="Tipo de Lavado" color="success"  v-model="progLavado" >
-                                                                    <vs-option  v-for="(it, i) in items" :key="i" :label="it.nombre" :value="it.id">
-                                                                        {{it.nombre}}
+    
+                                                <!-- Main table element -->
+                                                <b-table
+                                                :items="items"
+                                                :fields="fields"
+                                                :current-page="currentPage"
+                                                :per-page="perPage"
+                                                :filter="filter"
+                                                :filter-included-fields="filterOn"
+                                                :sort-by.sync="sortBy"
+                                                :sort-desc.sync="sortDesc"
+                                                :sort-direction="sortDirection"
+                                                label-sort-asc=""
+                                                label-sort-desc=""
+                                                label-sort-clear=""
+                                                stacked="md"
+                                                show-empty
+                                                small
+                                                @filtered="onFiltered"
+                                                >
+                                                <template #cell(actions)="row">
+                                                    <vs-button circle icon floating danger @click="eliminarLavado(row.item.id)">
+                                                        <box-icon name='trash' color="#fff"></box-icon>
+                                                    </vs-button>
+                                                </template>
+    
+                                                <template #row-details="row">
+                                                    <b-card>
+                                                    <ul>
+                                                        <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+                                                    </ul>
+                                                    </b-card>
+                                                </template>
+                                                </b-table>
+    
+                                            </b-container>
+                                        </template>
+                            
+                                        <template #modal-footer="{ ok }">
+                                            <vs-button danger @click="ok()">
+                                                <box-icon name='exit' color="#fff"></box-icon> Salir
+                                            </vs-button>
+                                        </template>
+                                        
+                                    </b-modal>
+                                </b-col>
+                                <b-col lg="6" md="6" sm="12" class="p-1">
+                                    <vs-button flat block icon @click="activeModalAddLavado=!activeModalAddLavado">
+                                        <box-icon name='clipboard' color="#195bff" ></box-icon> Agregar Lavado
+                                    </vs-button>
+                                    <vs-dialog v-model="activeModalAddLavado">
+                                        <template #header>
+                                        <h4 class="not-margin">
+                                            Registrar <b>Lavado</b>
+                                        </h4>
+                                        </template>
+                            
+                                        <div class="con-form">
+                                            <vs-input success class="mt-3" type="text" v-model="nomLavado" label-placeholder="nombre">
+                                                <template #icon>
+                                                    <box-icon name='rename'></box-icon>
+                                                </template>
+                                            </vs-input>
+                                            <vs-input success class="mt-3" type="text" v-model="desLavado" label-placeholder="descripcion">
+                                                <template #icon>
+                                                    <box-icon name='rename'></box-icon>
+                                                </template>
+                                            </vs-input>
+    
+                                            <vs-input success class="mt-3" type="text" v-model="canMin" label-placeholder="Cantidad Minima">
+                                                <template #icon>
+                                                    <box-icon name='dialpad-alt' ></box-icon>
+                                                </template>
+                                            </vs-input>
+                                            <vs-input success class="mt-3" type="text" v-model="canMax" label-placeholder="Cantidad Maxima">
+                                                <template #icon>
+                                                    <box-icon name='dialpad-alt' ></box-icon>
+                                                </template>
+                                            </vs-input>
+                                        </div>
+                                        <br>
+                                        <template #footer>
+                                            <div class="footer-dialog">
+                                                <vs-button block success
+                                                    flat
+                                                    :btnGuardar="btnGuardar == 1"
+                                                    @click="addPrograma()">
+                                                    Guardar
+                                                </vs-button>
+                                            </div>
+                                        </template>
+                                    </vs-dialog>
+                                </b-col>
+                            </b-row>
+                        </b-card>
+                    </b-col>
+                    <b-col lg="4" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mb-4 mx-auto">
+                            <b-row class="mt-1">
+                                <b-col lg="6" md="6" sm="12" class="p-1">
+                                    <vs-switch class="mt-3" v-model="buscarAct" @click="mostrarActInact()">
+                                        <template #off>
+                                            <box-icon name='check'></box-icon> Activos
+                                        </template>
+                                        <template #on>
+                                            <box-icon name='x' color="#fff"></box-icon> Inactivos
+                                        </template>
+                                    </vs-switch>
+                                </b-col>
+                                <b-col lg="6" md="6" sm="12" class="p-1">
+                                    <vs-button flat block icon @click="activeModal=!activeModal">
+                                        <box-icon name='wind' color="#195bff" ></box-icon> Agregar Lavadora
+                                    </vs-button>
+                                    
+                                    <b-modal size="xl" centered v-model="activeModal">
+                                        <template #modal-header="{ close }">
+                                            <h5>Agregar Lavadora</h5>
+                                            <vs-button circle icon floating danger @click="close()">
+                                                <box-icon name='x' color="#fff"></box-icon>
+                                            </vs-button>
+                                        </template>
+                                        <template>
+                                            <div class="con-form">
+                                                <b-card>
+                                                    <b-row>
+                                                        <b-col class="mt-4" lg="6" md="6" sm="12">
+                                                            <vs-input success type="text" v-model="nombreLav" placeholder="Lavadora">
+                                                                <template #icon>
+                                                                    <box-icon name='wind'></box-icon>
+                                                                </template>
+                                                            </vs-input>
+                                                        </b-col>
+                                                        <b-col class="mt-5" lg="6" md="6" sm="12">
+                                                            <div class="con-selects">
+                                                                <vs-select placeholder="Tipo de Lavado" color="success"  v-model="tipoLavado" >
+                                                                    <vs-option  v-for="(lavado, i) in tiposLavado" :key="i" :label="lavado.nombre" :value="lavado.id">
+                                                                        {{lavado.nombre}}
                                                                     </vs-option>
                                                                 </vs-select>
-                                                            </b-col>
-                                                            <b-col class="mt-2" lg="4" md="4" sm="2">
-                                                                <vs-button class="float-right" circle icon floating @click="add(progLavado)">
-                                                                    <box-icon name='plus' color='#fbfbfb' ></box-icon>
+                                                            </div>
+                                                        </b-col>
+                                                    </b-row>
+                                                </b-card>
+                                                <b-row>
+                                                    <b-col class="mt-4" lg="8" md="6" sm="12">
+                                                        <b-card title="Programas de Lavado" sub-title="Capacidad y programas de lavado">
+                                                            <b-row>
+                                                                <b-col class="mt-2" lg="8" md="8" sm="10">
+                                                                    <vs-select placeholder="Tipo de Lavado" color="success"  v-model="progLavado" >
+                                                                        <vs-option  v-for="(it, i) in items" :key="i" :label="it.nombre" :value="it.id">
+                                                                            {{it.nombre}}
+                                                                        </vs-option>
+                                                                    </vs-select>
+                                                                </b-col>
+                                                                <b-col class="mt-2" lg="4" md="4" sm="2">
+                                                                    <vs-button class="float-right" circle icon floating @click="add(progLavado)">
+                                                                        <box-icon name='plus' color='#fbfbfb' ></box-icon>
+                                                                    </vs-button>
+                                                                </b-col>
+                                                            </b-row>
+                                                        </b-card>
+                                                    </b-col>
+                                                    <b-col class="mt-2" lg="4" md="6" sm="12" v-for="(pl, i) in programasLavado" :key="i">
+                                                        <b-card :title="pl.nombre">
+                                                            <b-list-group>
+                                                                <b-list-group-item>Descipción: {{ pl.descripcion }}</b-list-group-item>
+                                                                <b-list-group-item>Capacidad Minima: {{ pl.cantidadMinima }}</b-list-group-item>
+                                                                <b-list-group-item>Capacidad Maxima: {{ pl.cantidadMaxima }}</b-list-group-item>
+                                                                <vs-button
+                                                                        danger
+                                                                        size="small"
+                                                                        @click="elim(pl.id)"
+                                                                    >
+                                                                        <box-icon name='trash' color="#FFF"></box-icon> Eliminar
                                                                 </vs-button>
-                                                            </b-col>
-                                                        </b-row>
-                                                    </b-card>
-                                                </b-col>
-                                                <b-col class="mt-2" lg="4" md="6" sm="12" v-for="(pl, i) in programasLavado" :key="i">
-                                                    <b-card :title="pl.nombre">
-                                                        <b-list-group>
-                                                            <b-list-group-item>Descipción: {{ pl.descripcion }}</b-list-group-item>
-                                                            <b-list-group-item>Capacidad Minima: {{ pl.cantidadMinima }}</b-list-group-item>
-                                                            <b-list-group-item>Capacidad Maxima: {{ pl.cantidadMaxima }}</b-list-group-item>
-                                                            <vs-button
-                                                                    danger
-                                                                    size="small"
-                                                                    @click="elim(pl.id)"
-                                                                >
-                                                                    <box-icon name='trash' color="#FFF"></box-icon> Eliminar
-                                                            </vs-button>
-                                                        </b-list-group>
-                                                    </b-card>
-                                                </b-col>
-                                            </b-row>
-                                        </div>
-                                    </template>
-                        
-                                    <template #modal-footer="{ ok }">
-                                        <vs-button primary @click="addWasher()">
-                                            <box-icon name='save' color="#fff"></box-icon> Guardar
-                                        </vs-button>
-                                        <vs-button danger @click="ok()">
-                                            <box-icon name='exit' color="#fff"></box-icon> Salir
-                                        </vs-button>
-                                    </template>
-                                    
-                                </b-modal>
-                            </template>
-                        </vs-card>
+                                                            </b-list-group>
+                                                        </b-card>
+                                                    </b-col>
+                                                </b-row>
+                                            </div>
+                                        </template>
+                            
+                                        <template #modal-footer="{ ok }">
+                                            <vs-button primary @click="addWasher()">
+                                                <box-icon name='save' color="#fff"></box-icon> Guardar
+                                            </vs-button>
+                                            <vs-button danger @click="ok()">
+                                                <box-icon name='exit' color="#fff"></box-icon> Salir
+                                            </vs-button>
+                                        </template>
+                                        
+                                    </b-modal>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
                 </b-row>
             </template>
@@ -725,8 +739,11 @@ input {
     place-items: center;
 }
 
-.vs-card{
-    padding: 0.5rem;
+.card{
+    border-radius: 1rem;
+}
+.vs-input{
+    width: 100%;
 }
 
 </style>

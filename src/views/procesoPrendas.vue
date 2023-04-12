@@ -4,6 +4,57 @@
         <br>
     
         <b-container fluid class="mt-5">
+            <b-row>
+                <b-col>
+                    <b-card style="max-width: 600px;" class="mb-4 p-2" >
+                        <b-row>
+                            <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
+                                <vs-input
+                                    type="date"
+                                    v-model="fechInicio"
+                                    label-placeholder="Fecha Inicio"
+                                />
+                            </b-col>
+                            <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
+                                <vs-input
+                                    type="date"
+                                    v-model="fechFinal"
+                                    label-placeholder="Fecha Final"
+                                />
+                            </b-col>
+                            <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
+                                <vs-button
+                                    class="p-0"
+                                    block
+                                    flat
+                                    primary 
+                                >
+                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                </vs-button>
+                            </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col lg="8" md="6" sm="12"  class="mt-4 p-0">
+                                <vs-input state="dark" @keyup="buscar()" dark v-model="buscarNombre" label-placeholder="Buscar por nombre">
+                                    <template #icon>
+                                        <box-icon name='map-pin' dark></box-icon> 
+                                    </template>
+                                </vs-input>
+                            </b-col>
+                            <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
+                                <vs-button
+                                    class="p-0"
+                                    block
+                                    flat
+                                    primary 
+                                >
+                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                </vs-button>
+                            </b-col>
+                        </b-row>
+                    </b-card>
+                </b-col>
+            </b-row>
             <template>
                 <b-tabs content-class="mt-3" align="center">
                     <b-tab title="Por Procesar" active>
@@ -146,6 +197,14 @@ input {
 
 .vs-card{
     padding: 0.5rem;
+}
+
+.vs-input{
+    width: 100%;
+}
+
+#vs-input--1785{
+    width: 100%;
 }
 
 </style>

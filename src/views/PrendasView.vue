@@ -5,88 +5,96 @@
     
         <b-container fluid class="mt-3">
             <template>
-                <b-row  class="center">
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-input state="dark" dark v-model="buscarTxt" @keyup="searchWasher()" placeholder="Buscar Prenda">
-                                    <template #icon>
-                                        <box-icon name='wind' dark></box-icon>
-                                    </template>
-                                </vs-input>
-                                <vs-button
-                                    transparent 
-                                    :active="btnBuscar == 1"
-                                    @click="searchWasher()"
-                                >
-                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                </vs-button>
-                            </template>
-                        </vs-card>
+                <b-row  class="mt-5">
+                    <b-col lg="6" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mx-auto">
+                            <b-row class="mt-1">
+                                <b-col lg="8" md="8" sm="12"  class="p-1">
+                                    <vs-input state="dark" dark v-model="buscarTxt" @keyup="searchWasher()" label-placeholder="Buscar Prenda">
+                                        <template #icon>
+                                            <box-icon name='wind' dark></box-icon>
+                                        </template>
+                                    </vs-input>
+                                </b-col>
+                                <b-col lg="4" md="4" sm="12"  class="p-1">
+                                    <vs-button
+                                        transparent 
+                                        :active="btnBuscar == 1"
+                                        @click="searchWasher()"
+                                    >
+                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                    </vs-button>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-switch v-model="buscarAct" @click="mostrarActInact()">
-                                    <template #off>
-                                        <box-icon name='check'></box-icon> Activos
-                                    </template>
-                                    <template #on>
-                                        <box-icon name='x' color="#fff"></box-icon> Inactivos
-                                    </template>
-                                </vs-switch>
-                                <vs-button flat icon @click="activeModal=!activeModal">
-                                    <box-icon name='wind' color="#195bff"></box-icon> Agregar Prendas
-                                </vs-button>
-                                <vs-dialog v-model="activeModal">
-                                    <template #header>
-                                    <h4 class="not-margin">
-                                        Registrar <b>Prendas</b>
-                                    </h4>
-                                    </template>
-                        
-                                    <div class="con-form">
-                                        <vs-input class="mt-3" success type="text" v-model="nombre" label-placeholder="Nombre">
-                                            <template #icon>
-                                                <box-icon name='wind'></box-icon>
-                                            </template>
-                                        </vs-input>
-                                        <vs-input class="mt-3" success type="text" v-model="cantidadBolsa" label-placeholder="Cantidad de prendas por bolsa">
-                                            <template #icon>
-                                                <box-icon name='wind'></box-icon>
-                                            </template>
-                                        </vs-input>
-                                        <div class="con-selects">
-                                            <b-skeleton class="mt-4" type="input" v-if="clientes.length == 0"></b-skeleton>
-                                            <vs-select class="mt-4" v-else success label-placeholder="Cliente" color="success"  v-model="cliente" >
-                                                <vs-option  v-for="(cli, i) in clientes" :key="i" :label="cli.nombre" :value="cli.id">
-                                                    {{cli.nombre}}
-                                                </vs-option>
-                                            </vs-select>
+                    <b-col lg="6" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mx-auto">
+                            <b-row class="mt-1">
+                                <b-col class="p-1">
+                                    <vs-switch class="mt-3" v-model="buscarAct" @click="mostrarActInact()">
+                                        <template #off>
+                                            <box-icon name='check'></box-icon> Activos
+                                        </template>
+                                        <template #on>
+                                            <box-icon name='x' color="#fff"></box-icon> Inactivos
+                                        </template>
+                                    </vs-switch>
+                                </b-col>
+                                <b-col class="p-1">
+                                    <vs-button flat icon @click="activeModal=!activeModal">
+                                        <box-icon name='wind' color="#195bff"></box-icon> Agregar Prendas
+                                    </vs-button>
+                                    <vs-dialog v-model="activeModal">
+                                        <template #header>
+                                        <h4 class="not-margin">
+                                            Registrar <b>Prendas</b>
+                                        </h4>
+                                        </template>
+                            
+                                        <div class="con-form">
+                                            <vs-input class="mt-3" success type="text" v-model="nombre" label-placeholder="Nombre">
+                                                <template #icon>
+                                                    <box-icon name='wind'></box-icon>
+                                                </template>
+                                            </vs-input>
+                                            <vs-input class="mt-3" success type="text" v-model="cantidadBolsa" label-placeholder="Cantidad de prendas por bolsa">
+                                                <template #icon>
+                                                    <box-icon name='wind'></box-icon>
+                                                </template>
+                                            </vs-input>
+                                            <div class="con-selects">
+                                                <b-skeleton class="mt-4" type="input" v-if="clientes.length == 0"></b-skeleton>
+                                                <vs-select class="mt-4" v-else success label-placeholder="Cliente" color="success"  v-model="cliente" >
+                                                    <vs-option  v-for="(cli, i) in clientes" :key="i" :label="cli.nombre" :value="cli.id">
+                                                        {{cli.nombre}}
+                                                    </vs-option>
+                                                </vs-select>
+                                            </div>
+                                            <div class="con-selects">
+                                                <b-skeleton class="mt-5" type="input" v-if="tiposProceso.length == 0"></b-skeleton>
+                                                <vs-select  class="mt-5" v-else success label-placeholder="Tipo de proceso" color="success"  v-model="tipoProceso" >
+                                                    <vs-option  v-for="(proceso, i) in tiposProceso" :key="i" :label="proceso.nombre" :value="proceso.id">
+                                                        {{proceso.nombre}}
+                                                    </vs-option>
+                                                </vs-select>
+                                            </div>
                                         </div>
-                                        <div class="con-selects">
-                                            <b-skeleton class="mt-5" type="input" v-if="tiposProceso.length == 0"></b-skeleton>
-                                            <vs-select  class="mt-5" v-else success label-placeholder="Tipo de proceso" color="success"  v-model="tipoProceso" >
-                                                <vs-option  v-for="(proceso, i) in tiposProceso" :key="i" :label="proceso.nombre" :value="proceso.id">
-                                                    {{proceso.nombre}}
-                                                </vs-option>
-                                            </vs-select>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <template #footer>
-                                        <div class="footer-dialog">
-                                            <vs-button block success
-                                                flat
-                                                :btnGuardar="btnGuardar == 1"
-                                                @click="addPrenda()">
-                                                Guardar
-                                            </vs-button>
-                                        </div>
-                                    </template>
-                                </vs-dialog>
-                            </template>
-                        </vs-card>
+                                        <br>
+                                        <template #footer>
+                                            <div class="footer-dialog">
+                                                <vs-button block success
+                                                    flat
+                                                    :btnGuardar="btnGuardar == 1"
+                                                    @click="addPrenda()">
+                                                    Guardar
+                                                </vs-button>
+                                            </div>
+                                        </template>
+                                    </vs-dialog>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
                 </b-row>
             </template>
@@ -378,8 +386,12 @@ input {
     place-items: center;
 }
 
-.vs-card{
-    padding: 0.5rem;
+.card{
+    border-radius: 1rem;
 }
+.vs-input{
+    width: 100%;
+}
+
 
 </style>

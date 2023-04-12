@@ -6,17 +6,17 @@
           <box-icon name='menu'></box-icon>
         </vs-button>
       </template>
-      <vs-navbar-item :active="active == 'llegada'" id="llegada">
+      <vs-navbar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'ALMACENENTRADA'].includes(role))" :active="active == 'llegada'" id="llegada">
         <router-link to="/llegada" class="nav-link">
             <box-icon name='grid-alt'></box-icon> Llegada
         </router-link>
       </vs-navbar-item>
-      <vs-navbar-item :active="active == 'procesoPrendas'" id="procesoPrendas">
+      <vs-navbar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'USUARIOS'].includes(role))" :active="active == 'procesoPrendas'" id="procesoPrendas">
         <router-link to="/procesoPrendas" class="nav-link">
             <box-icon name='briefcase'></box-icon>Proceso Prendas
         </router-link>
       </vs-navbar-item>
-      <vs-navbar-item :active="active == 'entregas'" id="entregas">
+      <vs-navbar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'ALMACENENTREGA'].includes(role))" :active="active == 'entregas'" id="entregas">
         <router-link to="/entregas" class="nav-link">
             <box-icon name='shopping-bag'></box-icon> Entregas
         </router-link>
@@ -38,7 +38,7 @@
         <!-- ...img logo -->
           <img src="@/assets/logo_coeli.png" alt="urvina-coeli">
       </template>
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="home">
+      <vs-sidebar-item  id="home">
         <template #icon>
           <box-icon name='home-alt-2' ></box-icon>
         </template>
@@ -47,7 +47,7 @@
         </router-link>
       </vs-sidebar-item>
       
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="usuario">
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'USUARIOS'].includes(role))" id="usuario">
         <template #icon>
           <box-icon name='user'></box-icon>
         </template>
@@ -56,7 +56,7 @@
         </router-link>
       </vs-sidebar-item>
 
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="cliente">
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'CLIENTES'].includes(role))" id="cliente">
         <template #icon>
           <box-icon type='solid' name='user-badge'></box-icon>
         </template>
@@ -65,7 +65,7 @@
         </router-link>
       </vs-sidebar-item>
 
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="tipoLavados">
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'LAVADORA'].includes(role))" id="tipoLavados">
         <template #icon>
           <box-icon name='water'></box-icon>
         </template>
@@ -74,7 +74,7 @@
         </router-link>
       </vs-sidebar-item>
 
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="lavadora">
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'LAVADORA'].includes(role))" id="lavadora">
         <template #icon>
           <box-icon type='solid' name='washer'></box-icon>
         </template>
@@ -83,7 +83,7 @@
         </router-link>
       </vs-sidebar-item>
       
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="prendas">
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'PRENDA'].includes(role))" id="prendas">
         <template #icon>
           <box-icon name='body'></box-icon>
         </template>
@@ -92,7 +92,7 @@
         </router-link>
       </vs-sidebar-item>
 
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="registroLavado">
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'PROCESOLAVADO'].includes(role))" id="registroLavado">
         <template #icon>
           <box-icon type='solid' name='file-plus'></box-icon>
         </template>
@@ -101,7 +101,7 @@
         </router-link>
       </vs-sidebar-item>
         
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="histOrdenes">
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'ALMACENENTRADA'].includes(role))" id="histOrdenes">
         <template #icon>
           <box-icon name='folder-open'></box-icon>
         </template>
@@ -110,7 +110,7 @@
         </router-link>
       </vs-sidebar-item>
 
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="canOrdenes">
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'CANCELACION'].includes(role))" id="canOrdenes">
         <template #icon>
           <box-icon name='folder-minus'></box-icon>
         </template>
@@ -120,7 +120,7 @@
       </vs-sidebar-item>
 
 
-      <vs-sidebar-item v-if="this.$session.get('roles').some(role => role == 'SISTEMAS') " id="rolesUsr" >
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'ROLES'].includes(role))" id="rolesUsr" >
         <template #icon>
           <box-icon name='toggle-right' ></box-icon>
         </template>
@@ -129,7 +129,16 @@
         </router-link>
       </vs-sidebar-item>
       
-      
+      <vs-sidebar-item v-if="this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'RASTREO'].includes(role))" id="rastOrdenes" >
+        <template #icon>
+          <box-icon name='map-pin'></box-icon>
+        </template>
+        <router-link to="/rastreo" class="nav-link">
+            Rastreo de Ordenes
+        </router-link>
+      </vs-sidebar-item>
+
+
       <vs-sidebar-item  :active="activeModal == 'cambioNip'" id="cambioNip" >
         <template #icon>
           <box-icon name='dialpad-alt' @click="activeModal=!activeModal"></box-icon>
@@ -221,7 +230,19 @@ export default {
     formProceso: false,
     url: process.env.VUE_APP_SERVICE_URL_API
   }),
+  mounted(){
+  },
   methods:{
+    ejemplo(){
+      
+      const encontrado = this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'USUARIOS'].includes(role));
+
+      if (encontrado) {
+        console.log('El arreglo fue encontrado');
+      } else {
+        console.log('El arreglo no fue encontrado');
+      }
+    },
     async actualizarPassword(){
       let token = this.$session.get('token')
 

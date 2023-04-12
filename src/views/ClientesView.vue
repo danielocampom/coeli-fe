@@ -5,73 +5,82 @@
     
         <b-container fluid class="mt-3">
             <template>
-                <b-row  class="center">
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="6">
-                        <vs-card>
-                            <template #img>
-                                <!-- <input v-on:keyup="buscarCli()" v-model="buscarTxt"> -->
-                                <vs-input state="dark" @keyup="buscarCli()" dark v-model="buscarTxt" placeholder="Buscar Cliente">
-                                    <template #icon>
-                                        <box-icon name='user' dark></box-icon> 
-                                    </template>
-                                </vs-input>
-                                <vs-button
-                                    transparent 
-                                    :active="btnBuscar == 1"
-                                    @click="buscarCli()"
-                                >
-                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                </vs-button>
-                            </template>
-                        </vs-card>
+                <b-row class="mt-5">
+                    <b-col lg="6" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mx-auto">
+                            <b-row class="mt-1">
+                                <b-col lg="8" md="8" sm="12"  class="p-1">
+                                    <vs-input state="dark" @keyup="buscarCli()" dark v-model="buscarTxt" label-placeholder="Buscar Cliente">
+                                        <template #icon>
+                                            <box-icon name='user' dark></box-icon> 
+                                        </template>
+                                    </vs-input>
+                                </b-col>
+                                <b-col lg="4" md="4" sm="12"  class="p-1">
+                                    <vs-button
+                                        primary 
+                                        flat
+                                        block
+                                        :active="btnBuscar == 1"
+                                        @click="searchUser()"
+                                    >
+                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                    </vs-button>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-switch v-model="buscarAct" @click="mostrarActInact()">
-                                    <template #off>
-                                        <box-icon name='check'></box-icon> Activos
-                                    </template>
-                                    <template #on>
-                                        <box-icon name='x' color="#fff"></box-icon> Inactivos
-                                    </template>
-                                </vs-switch>
-                                <vs-button flat icon @click="activeModal=!activeModal">
-                                    <box-icon name='user-plus' color="#195bff"></box-icon> Agregar Cliente
-                                </vs-button>
-                                <vs-dialog v-model="activeModal">
-                                    <template #header>
-                                    <h4 class="not-margin">
-                                        Registrar <b>Clientes</b>
-                                    </h4>
-                                    </template>
-                        
-                                    <div class="con-form">
-                                        <vs-input success type="text" v-model="nombreCli" placeholder="Nombre del Cliente">
-                                            <template #icon>
-                                                <box-icon name='user' type='solid' ></box-icon>
-                                            </template>
-                                        </vs-input>
-                                        <vs-input success type="text" v-model="claveCli" placeholder="Clave del Cliente">
-                                            <template #icon>
-                                                <box-icon name='dialpad-alt' ></box-icon>
-                                            </template>
-                                        </vs-input>
-                                    </div>
-                                    <br>
-                                    <template #footer>
-                                        <div class="footer-dialog">
-                                            <vs-button block success
-                                                flat
-                                                :btnGuardar="btnGuardar == 1"
-                                                @click="addCliente()">
-                                                Guardar
-                                            </vs-button>
+                    <b-col lg="6" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mx-auto">
+                            <b-row class="mt-1">
+                                <b-col class="p-1">
+                                    <vs-switch class="mt-3" v-model="buscarAct" @click="mostrarActInact()">
+                                        <template #off>
+                                            <box-icon name='check'></box-icon> Activos
+                                        </template>
+                                        <template #on>
+                                            <box-icon name='x' color="#fff"></box-icon> Inactivos
+                                        </template>
+                                    </vs-switch>
+                                </b-col>
+                                <b-col class="p-1">
+                                    <vs-button flat icon @click="activeModal=!activeModal">
+                                        <box-icon name='user-plus' color="#195bff"></box-icon> Agregar Cliente
+                                    </vs-button>
+                                    <vs-dialog v-model="activeModal">
+                                        <template #header>
+                                        <h4 class="not-margin">
+                                            Registrar <b>Clientes</b>
+                                        </h4>
+                                        </template>
+                            
+                                        <div class="con-form">
+                                            <vs-input success type="text" v-model="nombreCli" placeholder="Nombre del Cliente">
+                                                <template #icon>
+                                                    <box-icon name='user' type='solid' ></box-icon>
+                                                </template>
+                                            </vs-input>
+                                            <vs-input success type="text" v-model="claveCli" placeholder="Clave del Cliente">
+                                                <template #icon>
+                                                    <box-icon name='dialpad-alt' ></box-icon>
+                                                </template>
+                                            </vs-input>
                                         </div>
-                                    </template>
-                                </vs-dialog>
-                            </template>
-                        </vs-card>
+                                        <br>
+                                        <template #footer>
+                                            <div class="footer-dialog">
+                                                <vs-button block success
+                                                    flat
+                                                    :btnGuardar="btnGuardar == 1"
+                                                    @click="addCliente()">
+                                                    Guardar
+                                                </vs-button>
+                                            </div>
+                                        </template>
+                                    </vs-dialog>
+                                </b-col>
+                            </b-row>
+                        </b-card>
                     </b-col>
                 </b-row>
             </template>
@@ -318,8 +327,11 @@ input {
     place-items: center;
 }
 
-.vs-card{
-    padding: 0.5rem;
+.card{
+    border-radius: 1rem;
+}
+.vs-input{
+    width: 100%;
 }
 
 </style>

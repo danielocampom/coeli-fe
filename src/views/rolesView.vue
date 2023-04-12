@@ -5,75 +5,67 @@
     
         <b-container fluid class="mt-3">
             <template>
-                <b-row  class="center">
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-input state="dark" dark v-model="buscarTxt" @keyup="searchRol()" placeholder="Buscar Rol">
-                                    <template #icon>
-                                        <box-icon name='user' dark></box-icon> 
-                                    </template>
-                                </vs-input>
-                                <vs-button
-                                    transparent 
-                                    :active="btnBuscar == 1"
-                                    @click="buscarUsr()"
-                                >
-                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                </vs-button>
-                            </template>
-                        </vs-card>
-                    </b-col>
-                    <b-col class="mt-4  centerAll" lg="6" md="6" sm="12">
-                        <vs-card>
-                            <template #img>
-                                <vs-switch v-model="buscarAct" @click="mostrarActInact()">
-                                    <template #off>
-                                        <box-icon name='check'></box-icon> Activos
-                                    </template>
-                                    <template #on>
-                                        <box-icon name='x' color="#fff"></box-icon> Inactivos
-                                    </template>
-                                </vs-switch>
-                                <vs-button flat icon @click="activeModal=!activeModal">
-                                    <box-icon name='plus' color="#195bff"></box-icon> Agregar Roles
-                                </vs-button>
-                                <vs-dialog size="xl" centered v-model="activeModal">
-                                    <template #modal-header="{ close }">
-                                        <h5>Agregar <b>Roles</b></h5>
-                                        <vs-button circle icon floating danger @click="close()">
-                                            <box-icon name='x' color="#fff"></box-icon>
-                                        </vs-button>
-                                    </template>
-                                    <template #header>
-                                    <h4 class="not-margin">
-                                        Registrar <b>Roles</b>
-                                    </h4>
-                                    </template>
-                        
-                                    <div class="con-form">
-                                        
-                                        <vs-input success class="mt-2" type="text" v-model="nombre" label-placeholder="Nombre del rol">
-                                            <template #icon>
-                                                <box-icon name='rename' ></box-icon>
-                                            </template>
-                                        </vs-input>
-                                        <vs-input success class="mt-3" type="text" v-model="descripcion" label-placeholder="Descripción">
-                                            <template #icon>
-                                                <box-icon name='rename' ></box-icon>
-                                            </template>
-                                        </vs-input>
+                <b-row  class="mt-5">
+                    <b-col lg="6" md="6" sm="12">
+                        <b-card style="max-width: 400px;" class="mb-4 mx-auto" >
+                            <b-row class="mt-1">
+                                <b-col lg="8" md="8" sm="12"  class="p-2">
+                                    <vs-input state="dark" dark v-model="buscarTxt" @keyup="searchRol()" placeholder="Buscar Rol">
+                                        <template #icon>
+                                            <box-icon name='user' dark></box-icon> 
+                                        </template>
+                                    </vs-input>
+                                </b-col>
+                                <b-col lg="4" md="4" sm="12"  class="p-2">
+                                    <vs-button
+                                        primary
+                                        block
+                                        flat 
+                                        :active="btnBuscar == 1"
+                                        @click="buscarUsr()"
+                                    >
+                                        <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
+                                    </vs-button> 
+                                </b-col>
+                            </b-row>
+                            <vs-button flat block icon @click="activeModal=!activeModal">
+                                <box-icon name='plus' color="#195bff"></box-icon> Agregar Roles
+                            </vs-button>
+                            <vs-dialog size="xl" centered v-model="activeModal">
+                                <template #modal-header="{ close }">
+                                    <h5>Agregar <b>Roles</b></h5>
+                                    <vs-button circle icon floating danger @click="close()">
+                                        <box-icon name='x' color="#fff"></box-icon>
+                                    </vs-button>
+                                </template>
+                                <template #header>
+                                <h4 class="not-margin">
+                                    Registrar <b>Roles</b>
+                                </h4>
+                                </template>
+                    
+                                <div class="con-form">
+                                    
+                                    <vs-input success class="mt-2" type="text" v-model="nombre" label-placeholder="Nombre del rol">
+                                        <template #icon>
+                                            <box-icon name='rename' ></box-icon>
+                                        </template>
+                                    </vs-input>
+                                    <vs-input success class="mt-3" type="text" v-model="descripcion" label-placeholder="Descripción">
+                                        <template #icon>
+                                            <box-icon name='rename' ></box-icon>
+                                        </template>
+                                    </vs-input>
 
-                                    </div>
-                                    <br>
-                                    <template #footer>
-                                        <vs-button block :btnGuardar="btnGuardar == 1" success @click="addRoll()">
-                                            <box-icon name='save' color="#fff"></box-icon> Guardar
-                                        </vs-button>
-                                    </template>
-                                </vs-dialog>
-                            </template>
-                        </vs-card>
+                                </div>
+                                <br>
+                                <template #footer>
+                                    <vs-button block :btnGuardar="btnGuardar == 1" success @click="addRoll()">
+                                        <box-icon name='save' color="#fff"></box-icon> Guardar
+                                    </vs-button>
+                                </template>
+                            </vs-dialog>
+                        </b-card>
                     </b-col>
                 </b-row>
             </template>
