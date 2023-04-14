@@ -13,9 +13,13 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import 'vuesax/dist/vuesax.css'
 import 'boxicons'
 
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
 // Make BootstrapVue available throughout your project
 Vue.config.productionTip = false
 
+Vue.use(Vuetify)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueSweetalert2);

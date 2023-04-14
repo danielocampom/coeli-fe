@@ -247,7 +247,7 @@ export default {
       let token = this.$session.get('token')
 
       let json = {
-          "idUsuario": this.nomLavado,
+          "idUsuario": this.$session.get('idUsuario'),
           "password": this.passNueva,
           "confirmPassword": this.passConf,
           "actualPassword": this.passAct

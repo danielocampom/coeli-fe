@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --mode dev --port 8089",
+    "serve": "vue-cli-service serve --mode dev",
     "build": "vue-cli-service build --mode dev",
     "lint": "vue-cli-service lint",
     "prod": "vue-cli-service servr --mode prod",
@@ -26,7 +26,8 @@
     "vue-search-select": "^2.9.5",
     "vue-session": "^1.0.0",
     "vue-sweetalert2": "^5.0.5",
-    "vuesax": "^4.0.1-alpha.25"
+    "vuesax": "^4.0.1-alpha.25",
+    "vuetify": "^2.6.15"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -35,8 +36,11 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "deepmerge": "^4.3.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "sass": "~1.32",
+    "sass-loader": "^13.2.2",
     "stylus": "^0.59.0",
     "stylus-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.14"

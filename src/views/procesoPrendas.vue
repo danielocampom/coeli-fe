@@ -4,61 +4,10 @@
         <br>
     
         <b-container fluid class="mt-5">
-            <b-row>
-                <b-col>
-                    <b-card style="max-width: 600px;" class="mb-4 p-2" >
-                        <b-row>
-                            <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
-                                <vs-input
-                                    type="date"
-                                    v-model="fechInicio"
-                                    label-placeholder="Fecha Inicio"
-                                />
-                            </b-col>
-                            <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
-                                <vs-input
-                                    type="date"
-                                    v-model="fechFinal"
-                                    label-placeholder="Fecha Final"
-                                />
-                            </b-col>
-                            <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
-                                <vs-button
-                                    class="p-0"
-                                    block
-                                    flat
-                                    primary 
-                                >
-                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                </vs-button>
-                            </b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col lg="8" md="6" sm="12"  class="mt-4 p-0">
-                                <vs-input state="dark" @keyup="buscar()" dark v-model="buscarNombre" label-placeholder="Buscar por nombre">
-                                    <template #icon>
-                                        <box-icon name='map-pin' dark></box-icon> 
-                                    </template>
-                                </vs-input>
-                            </b-col>
-                            <b-col lg="4" md="6" sm="12"  class="mt-4 p-0">
-                                <vs-button
-                                    class="p-0"
-                                    block
-                                    flat
-                                    primary 
-                                >
-                                    <box-icon name='search-alt-2' color="#195bff"></box-icon> Buscar
-                                </vs-button>
-                            </b-col>
-                        </b-row>
-                    </b-card>
-                </b-col>
-            </b-row>
             <template>
                 <b-tabs content-class="mt-3" align="center">
                     <b-tab title="Por Procesar" active>
-                        <b-container class="bv-example-row">
+                        <!-- <b-container class="bv-example-row"> -->
                             <b-row>
                                 <b-col class="mt-4" lg="3" md="4" sm="6" v-for="(cons, i) in consultas" :key="i">
                                     <CardProcesoPrendaComponent  v-if="!cons.idEstado" @updatePage="updatePage" :data="{prenda:cons.nombrePrenda, idPrenda: cons.idPrenda, descripcionEstado:cons.descripcionEstado, cantidadPrendas:cons.cantidadPrendas, idPaso: cons.idPaso, idOrdenPrenda: cons.idOrdenPrenda, idTipoLavado: cons.idTipoLavado, nombrePaso: cons.nombrePaso}"></CardProcesoPrendaComponent>
@@ -69,10 +18,10 @@
                                     No se han encontrado datos
                                 </template>
                             </vs-alert>
-                        </b-container>
+                        <!-- </b-container> -->
                     </b-tab>
                     <b-tab title="Procesando">
-                        <b-container class="bv-example-row">
+                        <!-- <b-container class="bv-example-row"> -->
                             <b-row>
                                 <b-col class="mt-4" lg="3" md="4" sm="6" v-for="(cp, i) in consultasProcesando" :key="i">
                                     <CardProcesandoPrendaComponent v-if="cp.idEstado" @updatePage="updatePage" :data="{idOrdenPrenda: cp.idOrdenPrenda, idPrenda: cp.idPrenda, idHist:cp.idHist, nombrePaso: cp.nombrePaso, nombrePrenda: cp.nombrePrenda, nombreProgramaLavado: cp.nombreProgramaLavado, nombreSigPaso: cp.nombreSigPaso, tipoLavado: cp.tipoLavado, cantidad: cp.cantidadPrendas, idSigPaso: cp.idSigPaso, nombrePaso: cp.nombrePaso, idEstado: cp.idEstado, idHist: cp.idHist, idLavadora: cp.idLavadora, cantidadMaxima: cp.cantidadMaxima, cantidadMinima: cp.cantidadMinima }"></CardProcesandoPrendaComponent>
@@ -83,7 +32,7 @@
                                     No se han encontrado datos
                                 </template>
                             </vs-alert>
-                        </b-container>
+                        <!-- </b-container> -->
                     </b-tab>
                 </b-tabs>
             </template>

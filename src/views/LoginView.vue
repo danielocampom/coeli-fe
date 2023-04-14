@@ -61,6 +61,7 @@ export default {
         this.$session.set('token', data.datos.token)
         this.$session.set('roles', data.datos.roles)
         this.$session.set('username', data.datos.username)
+        this.$session.set('idUsuario', data.datos.idUsuario)
         this.$router.push("dashboard")
       }else{
         this.toastTopEnd("error", data.mensaje)

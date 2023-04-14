@@ -13,7 +13,7 @@
                         <b-card  style="max-width: 400px;" class="mb-4 mx-auto" >
                             <b-row class="mt-1">
                                 <b-col lg="8" md="8" sm="12"  class="p-1">
-                                    <vs-input state="dark" @keyup="buscar()" dark v-model="buscarTxt" placeholder="Buscar Ordenes">
+                                    <vs-input state="dark" dark v-model="buscarTxt" placeholder="Buscar Ordenes">
                                         <template #icon>
                                             <box-icon name='map-pin' dark></box-icon> 
                                         </template>
@@ -37,18 +37,22 @@
             </template>
         </b-container>
         <br>
-        <b-container class="bv-example-row">
-            <b-row >
-                <b-col class="mt-4" lg="3" md="4" sm="6" v-for="(cliente, i) in clientes" :key="i">
-                    <cardClienteComponent @updatePage="updatePage" :dataCli="{nombre: cliente.nombre, estado: cliente.estado, clave: cliente.clave, id: cliente.id}" />
-                </b-col>
-            </b-row>
-            <vs-alert v-if="sinData.length == 0" shadow danger>
-                <template #title>
-                    No se han encontrado datos
-                </template>
-            </vs-alert>
-        </b-container>
+        <template>
+            <v-container style="max-width: 900px;" v-if="busqueda.length > 0">
+                <v-timeline dense clipped >
+                    <v-timeline-item fill-dot class="white--text mb-12" color="orange" large>
+                        <template v-slot:icon>
+                            <span>HI</span>
+                        </template>
+                    </v-timeline-item>
+                    <br>
+                    <v-timeline-item class="mb-4" color="primary" icon-color="grey lighten-2" small  v-for="(bs, i) in busqueda" :key="i">
+                        <cardRastroView :dataRastreo="bs"></cardRastroView>
+                    </v-timeline-item>
+                </v-timeline>
+            </v-container>
+        </template>
+
         <div v-if="activarReboot">
             <loginComponent :login="activarReboot"></loginComponent>
         </div>
@@ -58,38 +62,33 @@
 
 <script>
 import HeaderComponent from '@/components/Header.vue';
-import CardClienteComponent from '@/components/cardCliente.vue'
-import { refreshSession } from "@/service/service.js"
+import { refreshSession, fetchApi } from "@/service/service.js"
 import loginComponent from '@/components/cardLogin.vue';
+import cardRastroView from '@/components/cardRastroView.vue';
+import moment from 'moment'
 
 export default {
-    name:"ClientesView",
+    name:"rastreoOrdenesView",
     data: () => ({
-        clientes: [],
-        sinData: false,
-        activeModal: false,
-        nombreCli: '',
-        claveCli: '',
-        btnGuardar: 0,
-        buscarAct: false,
+        busqueda: [],
+        nombreUsr: '',
+        lavadora: '',
+        tipoLavado: '',
+        programaLavado: '',
         buscarTxt: '',
         btnBuscar: 0,
-        hidden: true,
-        notData: true,
         url: process.env.VUE_APP_SERVICE_URL_API, activarReboot: false,
     }),
     components: {
         HeaderComponent,
-        CardClienteComponent,
-        loginComponent
+        loginComponent,
+        cardRastroView
     },
     created(){
         refreshSession(this.url ,this.$session.get('token')).then( data => {
             this.$session.start()
             this.$session.set('token', data.datos.token)
         })
-    },
-    mounted(){
     },
     methods: {
         
@@ -100,37 +99,26 @@ export default {
             }) 
         },
         
+        fecha(fecha){
+            moment.locale('es')
+            return moment(fecha).format("LLLL");  
+        },
         async buscar(){
-            this.clientes = []
+            this.busqueda = []
 
-            if(this.buscarTxt != ''){
-                let token = this.$session.get('token')
-
-                let json = {
-                    "criterio": this.buscarTxt,
-                };
-                let res = await fetch(this.url+"cliente/find",{
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': "*",
-                        'Authorization': token
-                    },
-                    body: JSON.stringify(json)
-                })
-                let data = await res.json()
-
+            fetchApi(this.url+`orden/historial/${this.buscarTxt}`, 'GET', this.$session.get('token'))
+            .then(data => {
                 if(data.status == 401){ this.activarReboot = true }
                 if(data.status == 200){
-                    this.clientes = data.datos
+                    this.busqueda = data.datos
                     this.refresh()
                 }else{
-                    this.openNotification(`Error: ${data.mensaje}`, `${data.diagnostico}`, 'danger', 'top-center',`<box-icon name='bug' color="#fff"></box-icon>`)
+                    this.openNotification(`Ooops! Error:`, `${data.mensaje}`, 'danger', 'top-center',`<box-icon name='bug' color="#fff"></box-icon>`)
+                    this.busqueda = []
                 }
-            }else{
-                this.clientes = []
-            }
+            })
         },
+        
         async updatePage(status){
             if(status == 200){
                 this.mostraActivos()
