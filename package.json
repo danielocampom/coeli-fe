@@ -10,6 +10,7 @@
     "build_prod": "vue-cli-service build --mode prod"
   },
   "dependencies": {
+    "apexcharts": "^3.38.0",
     "bootstrap": "^5.2.2",
     "bootstrap-vue": "^2.23.1",
     "boxicons": "^2.1.4",
@@ -20,6 +21,7 @@
     "moment": "^2.29.4",
     "pdfjs-dist": "^3.4.120",
     "vue": "^2.7.14",
+    "vue-apexcharts": "^1.6.2",
     "vue-d3-charts": "^0.2.8",
     "vue-fullcalendar": "^1.0.9",
     "vue-router": "^3.5.1",
@@ -45,4 +47,5 @@
     "stylus-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.14"
   }
+  
 }

@@ -1,10 +1,8 @@
 <template>
         
-    <b-card>
+    <b-card :title="dataRastreo.nombreCliente" :sub-title="dataRastreo.nombrePrenda">
         <v-row justify="space-between">
             <v-col cols="10">
-                <br>
-                <br>
                 <strong>Fecha Inicio:</strong> {{ fecha(dataRastreo.fechaInicio) }}
                 <br>
                 <strong>Fecha Fin:</strong> {{ fecha(dataRastreo.fechaFin) }}
@@ -31,7 +29,7 @@
         <label for="cantidad">Lavadora: <strong>{{ dataRastreo.lavadora ? lavadora : 'No se utilizo lavadora' }}</strong></label> <br>
         <label for="cantidad">Cantidad: <strong>{{dataRastreo.cantidad }}</strong></label> <br>
         <v-timeline  dense >
-            <v-timeline-item >
+            <v-timeline-item  color="deep-purple lighten-1">
                 <span slot="opposite">{{dataRastreo.pasoProceso.nombre}}</span>
                 <v-card class="elevation-2">
                     <v-card-title class="text-h5">
@@ -108,7 +106,7 @@ export default {
     },
     mounted(){
         this.buscarUsuario(this.dataRastreo.usuario, 1)
-        this.buscarUsuario(this.dataRastreo.pasoProceso.usuario, 2)
+        // this.buscarUsuario(this.dataRastreo.pasoProceso.usuario, 2)
         this.dataRastreo.pasoProceso.idTipoLavado ? this.buscarTipoLavado(this.dataRastreo.pasoProceso.idTipoLavado) : ''
         this.dataRastreo.pasoProceso.idProgramaLavado ? this.buscarProgramaLavado(this.dataRastreo.pasoProceso.idProgramaLavado) : ''
         this.dataRastreo.lavadora ? this.buscarLavadora(this.dataRastreo.lavadora) : ''

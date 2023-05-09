@@ -233,16 +233,7 @@ export default {
   mounted(){
   },
   methods:{
-    ejemplo(){
-      
-      const encontrado = this.$session.get('roles').some(role => ['SISTEMAS', 'ADMIN', 'USUARIOS'].includes(role));
-
-      if (encontrado) {
-        console.log('El arreglo fue encontrado');
-      } else {
-        console.log('El arreglo no fue encontrado');
-      }
-    },
+    
     async actualizarPassword(){
       let token = this.$session.get('token')
 
@@ -262,7 +253,6 @@ export default {
           body: JSON.stringify(json)
       })
       let data = await res.json()
-
       if(data.status == 200){
           this.activeModal = false
           this.openNotification(`Exito: ${data.mensaje}`, `Se ha Actualizado Correctamente`, 'success', 'top-center',`<box-icon name='check' color="#fff"></box-icon>`)
@@ -270,10 +260,21 @@ export default {
           this.openNotification(`Error: ${data.mensaje}`, `${data.diagnostico}`, 'danger', 'top-center',`<box-icon name='bug' color="#fff"></box-icon>`)
       }
     },
+    
     logout(){
       this.$session.destroy();
       location.reload();
       // this.$router.push('/login');
+    },
+    openNotification( title, text, color, position = null, icon) {
+      this.$vs.notification({
+        progress: 'auto',
+        icon,
+        color,
+        position,
+        title: title,
+        text: text
+      })
     }
   }
 }

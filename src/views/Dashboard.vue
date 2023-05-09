@@ -2,244 +2,89 @@
     <div>
         <HeaderComponent/>
         <br>
-        <b-container class="bv-example-row mt-5">
-            <b-row v-if="reload">
-                <b-col class="mt-4" lg="4" md="12" sm="12" >
-                    
-                    <b-card no-body class="overflow-hidden">
-                        <b-skeleton-img aspect="3:2"></b-skeleton-img>
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="12" sm="12" >
-                    
-                    <b-card no-body class="overflow-hidden">
-                        <b-skeleton-img aspect="3:2"></b-skeleton-img>
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="12" sm="12" >
-                    
-                    <b-card no-body class="overflow-hidden">
-                        <b-skeleton-img aspect="3:2"></b-skeleton-img>
-                    </b-card>
-                </b-col>
-            </b-row>
-            <b-row v-else>
-                <b-col class="mt-4" lg="4" md="12" sm="12">
-                    <vs-card type="3" class="cardKM">
-                        <template #img>
-                            <donutPie v-model="dp" :title="'cliente'"/>
-                        </template>
-                    </vs-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="12" sm="12">
-                    <vs-card type="3" class="cardKM">
-                        <template #img>
-                            <donutPie v-model="dp" :title="'cliente'"/>
-                        </template>
-                    </vs-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="12" sm="12">
-                    <vs-card type="3" class="cardKM">
-                        <template #img>
-                            <donutPie v-model="dp" :title="'cliente'"/>
-                        </template>
-                    </vs-card>
-                </b-col>
-            </b-row>
-
-            <b-row v-if="reload">
-                <b-col class="mt-4" lg="8" md="12" sm="12" >
-                    <b-card>
-                        <b-row no-gutters>
-                            <b-col md="5">
-                                <b-skeleton-img aspect="3:2"></b-skeleton-img>
-                            </b-col>
-                            <b-col md="7">
-                                <b-skeleton type="input"></b-skeleton>
-                                <b-card class="mt-5 m-3">
-                                    <b-skeleton animation="fade" width="85%"></b-skeleton>
-                                    <b-skeleton animation="fade" width="55%"></b-skeleton>
-                                    <b-skeleton animation="fade" width="70%"></b-skeleton>
-                                </b-card>
-                            </b-col>
-                        </b-row>
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="12" sm="12" >
-                    <b-card no-body class="overflow-hidden">
-                        <b-skeleton-img aspect="3:2"></b-skeleton-img>
-                    </b-card>
-                </b-col>
-            </b-row>
-            <b-row v-else>
-                <b-col class="mt-4" lg="8" md="12" sm="12" >
-                    <b-card no-body class="overflow-hidden">
-                        <b-row no-gutters>
-                            <b-col md="5">
-                                <D3PieChart :config="prendasEntrantes_config" :datum="[{entr: cantidadTotalPrendas, salid: 'Total'},
-                                {entr: cantidadTotalPrendas-cantidadTotalRestantes, salid: 'Rest'},
-                                {entr: cantidadTotalPrendas-cantidadTotalTerminadas, salid: 'Term'},]">
-                                </D3PieChart>
-                            </b-col>
-                            <b-col md="7">
-                                
-                                <div class="text-primary fw-bolder text-center mb-5 mt-3 h3">Prendas entrantes: <br><b>{{cantidadTotalPrendas}}</b>   </div>
-                                <b-card class="mt-5 m-3">
-                                    <!-- <b-progress rogress :value="cantidadTotalPrendas" :max="cantidadTotalPrendas" class="mb-3"></b-progress> -->
-                                    <h3 class="text-primary fw-bolder text-center h4">Prendas Terminadas</h3>
-                                    <b-progress rogress :value="cantidadTotalTerminadas" :max="cantidadTotalPrendas" class="mb-3"></b-progress>
-                                    <h3 class="text-primary fw-bolder text-center h4">Prendas Restantes</h3>
-                                    <b-progress rogress :value="cantidadTotalRestantes" :max="cantidadTotalPrendas" class="mb-3"></b-progress>
-                                </b-card>
-                            </b-col>
-                        </b-row>
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="12" sm="12" >
-                    <b-card no-body class="overflow-hidden">
-                        <D3LineChart class="m-3" :config="chart_configL" :datum="chart_dataL"></D3LineChart>
-                    </b-card>
-                </b-col>
-            </b-row>
-
-            <b-row v-if="reload">
-                <b-col class="mt-4" lg="4" md="4" sm="6">
-                    <b-card>
-                        <b-skeleton type="input"></b-skeleton>
-                        <b-skeleton-img class="mt-3" aspect="3:1"></b-skeleton-img>
-                        <br>
-                        <b-skeleton animation="fade" width="85%"></b-skeleton>
-                        <b-skeleton animation="fade" width="55%"></b-skeleton>
-                        <b-skeleton animation="fade" width="70%"></b-skeleton>
-                        <b-skeleton class="mt-3" type="input"></b-skeleton>
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="4" sm="6">
-                    <b-card>
-                        <b-skeleton type="input"></b-skeleton>
-                        <b-skeleton-img class="mt-3" aspect="3:1"></b-skeleton-img>
-                        <br>
-                        <b-skeleton animation="fade" width="85%"></b-skeleton>
-                        <b-skeleton animation="fade" width="55%"></b-skeleton>
-                        <b-skeleton animation="fade" width="70%"></b-skeleton>
-                        <b-skeleton class="mt-3" type="input"></b-skeleton>
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="4" sm="6">
-                    <b-card>
-                        <b-skeleton type="input"></b-skeleton>
-                        <b-skeleton-img class="mt-3" aspect="3:1"></b-skeleton-img>
-                        <br>
-                        <b-skeleton animation="fade" width="85%"></b-skeleton>
-                        <b-skeleton animation="fade" width="55%"></b-skeleton>
-                        <b-skeleton animation="fade" width="70%"></b-skeleton>
-                        <b-skeleton class="mt-3" type="input"></b-skeleton>
-                    </b-card>
-                </b-col>
-            </b-row>
-            <b-row v-else>
-                <b-col class="mt-4" lg="4" md="4" sm="6">
-                    <b-card title="Prendas en llegada" align="center">
-                        <D3PieChart :config="chart_configD" :datum="chart_dataD"></D3PieChart>
-                        <b-card-text>
-                            Some quick example text to build on the <em>card title</em> and make up the bulk of the card's
-                            content.
-                        </b-card-text>
-                        <vs-button block> Detallar </vs-button>
-
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="4" sm="6">
-                    <b-card title="Prendas en Salida" align="center">
-                        <D3PieChart :config="chart_configD" :datum="chart_dataD"></D3PieChart>
-                        <b-card-text>
-                            Some quick example text to build on the <em>card title</em> and make up the bulk of the card's
-                            content.
-                        </b-card-text>
-                        <vs-button block> Detallar </vs-button>
-
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="4" md="4" sm="6">
-                    <b-card title="Prendas en Proceso" align="center">
-                        <D3PieChart :config="chart_configD" :datum="chart_dataD"></D3PieChart>
-                        <b-card-text>
-                            Some quick example text to build on the <em>card title</em> and make up the bulk of the card's
-                            content.
-                        </b-card-text>
-                        <vs-button block> Detallar </vs-button>
-                    </b-card>
-                </b-col>
-            </b-row>
-            <br>
-
-            <b-row v-if="reload">
-                <b-col class="mt-4" lg="4" md="12" sm="12" >
-                    <b-card>
-                        <b-skeleton type="input"></b-skeleton>
-                        <br>
-                        <b-skeleton animation="fade" width="100%"></b-skeleton>
-                        <b-skeleton animation="fade" width="100%"></b-skeleton>
-                        <b-skeleton animation="fade" width="100%"></b-skeleton>
-
-                        <b-skeleton-img class="mt-3" aspect="3:1"></b-skeleton-img>
-                        <br>
-                        <b-skeleton animation="fade" width="100%"></b-skeleton>
-                        <b-skeleton animation="fade" width="100%"></b-skeleton>
-                        <b-skeleton animation="fade" width="100%"></b-skeleton>
-                        <b-skeleton class="mt-3" type="input"></b-skeleton>
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="8" md="12" sm="12" >
-                    <b-card>
-                        <b-skeleton type="input"></b-skeleton>
-                        <b-skeleton-img class="mt-3" aspect="3:1"></b-skeleton-img>
-                        <br>
-                        <b-skeleton animation="fade" width="55%"></b-skeleton>
-                        <b-skeleton class="mt-3" type="input"></b-skeleton>
-                    </b-card>
-                </b-col>
-                <b-col class="mt-4" lg="12" md="12" sm="12" >
-                    <b-card>
-                        <b-skeleton type="input"></b-skeleton>
-                        <br>
-                        <b-skeleton animation="fade" width="85%"></b-skeleton>
-
-                        <b-skeleton-img class="mt-3" aspect="3:1"></b-skeleton-img>
-                        <br>
-                        <b-skeleton animation="fade" width="70%"></b-skeleton>
-                        <b-skeleton class="mt-3" type="input"></b-skeleton>
-                    </b-card>
-                </b-col>
-            </b-row>
-            <b-row v-else>
-                <b-col class="mt-4" lg="4" md="12" sm="12" >
-                    <b-card title="ejemplo" align="center">
-                        <D3BarChart :config="chart_configH" :datum="chart_dataH" :title="chart_title" source="chart_source ejemplo data center "></D3BarChart>
-                        <vs-button block> Detallar </vs-button>
-                    </b-card>
-                </b-col>
+        
+        <b-row class="mt-5 p-4">
+            <b-col>
+                <b-card :title="cliente" :style="{ 'border-left': `solid 5px ${fechaEntregaColor} !important` }">
+                    <b-row>
+                        <b-col lg="3" md="6" sm="12">
+                            <apexchart-all v-if="seriesRadial.length > 0" type="radialBar" height="350" :options="chartOptionsRadial" :series="seriesRadial"></apexchart-all>
+                            <b-card no-body class="overflow-hidden" v-else>
+                                <v-skeleton-loader
+                                    height="300"
+                                    type="image, image, image"
+                                >
+                                </v-skeleton-loader>
+                            </b-card>
+                        </b-col>
+                        <b-col lg="9" md="6" sm="12">
+                            <apexchart-all v-if="seriesLine.length > 0" type="line" height="350" :options="chartOptionsLine" :series="seriesLine"></apexchart-all>
+                            <b-card no-body class="overflow-hidden" v-else>
+                                <v-skeleton-loader
+                                    height="300"
+                                    type="image, image, image"
+                                >
+                                </v-skeleton-loader>
+                            </b-card>
+                        </b-col>
+                    </b-row>
+                </b-card>
+            </b-col>
+        </b-row>
+        <div class="slider mt-5" v-if="sinData">
+            <div class="cardsContent" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+                <lavadoraDashboard style="min-width: 20rem; margin: 1rem;" v-for="(lavadora, i) in lavadoras" :key="i" :data="{nombre: lavadora.lavadora, tipoLavado: lavadora.tipoLavado, idEstado: lavadora.idEstado}"></lavadoraDashboard>
+            </div>
+            <div class="controls">
+                <button @click="previousSlide" :disabled="currentSlide === 0"><box-icon name='skip-previous'></box-icon></button>
+                <button @click="nextSlide" :disabled="currentSlide === lavadoras.length - 1"><box-icon name='skip-next'></box-icon></button>
+            </div>
+        </div>
+        
+        <v-row class="mt-1 p-4" v-if="reload">
+            <v-col sm="12" md="4" lg="3" class="mt-4">
                 
-                <b-col class="mt-4" lg="8" md="12" sm="12" >
-                    <b-card title="Prendas en llegada" align="center">
-                        <D3BarChart
-                        :config="chart_config"
-                        :datum="chart_data"
-                        ></D3BarChart>
-
-                        <vs-button block> Detallar </vs-button>
-                    </b-card>
-                </b-col>
+                <b-card no-body class="overflow-hidden">
+                    <v-skeleton-loader
+                        height="300"
+                        type="image, image, image"
+                    >
+                    </v-skeleton-loader>
+                </b-card>
                 
-                <b-col class="mt-4" lg="12" md="12" sm="12" >
-                    <b-card title="Comparacion del mes Pasado" align="center">
-                        <D3LineChart :config="chart_configL" :datum="chart_dataL"></D3LineChart>
-                        <vs-button block> Detallar </vs-button>
-                    </b-card>
-                </b-col>
-            </b-row>
-
-        </b-container>
+                <b-card  no-body class="overflow-hidden mt-3">
+                    <v-skeleton-loader
+                        height="150"
+                        type="image, image, image"
+                    >
+                    </v-skeleton-loader>
+                </b-card>
+            </v-col>
+            <v-col sm="12" md="4" lg="9" class="mt-4">
+                <b-card  no-body class="overflow-hidden">
+                    <v-skeleton-loader
+                        height="470"
+                        type="image, image, image"
+                    >
+                    </v-skeleton-loader>
+                </b-card>
+            </v-col>
+        </v-row>
+        <b-row class="mt-1 p-4" v-else>
+            <b-col class="mt-4" lg="3" md="6" sm="12">
+                <b-card title="Ordenes entregadas">
+                    <apexchart-all type="donut" height="350" :options="chartOptionsSemiDonut" :series="entradasSalidas"></apexchart-all>
+                </b-card>
+                <b-card class="mt-3" title="Ordenes del mes pasado y actual">
+                    <apexchart-all type="bar" height="150" :options="chartOptionsMPA" :series="seriesMPA"></apexchart-all>
+                </b-card>
+            </b-col>
+            <b-col class="mt-4" lg="9" md="6" sm="12">
+                <b-card title="Frecuencia de los clientes">
+                    <apexchart-all type="line" height="450" :options="chartOptionsBarCode" :series="seriesBarCode"></apexchart-all>
+                </b-card>
+            </b-col>
+        </b-row>
         <div v-if="activarReboot">
             <loginComponent :login="activarReboot"></loginComponent>
         </div>
@@ -249,173 +94,257 @@
 
 <script>
 import HeaderComponent from '@/components/Header.vue';
-// import CalendarComponent from '@/components/calendario.vue';
+import lavadoraDashboard from '@/components/cardLavadoraDashboard.vue';
 import loginComponent from '@/components/cardLogin.vue';
-import { D3BarChart, D3PieChart, D3LineChart } from 'vue-d3-charts';
-import { DonutPie } from 'donut-pie'
 import { refreshSession, fetchApi } from "@/service/service.js"
-
-
 
 export default {
     name:"DashboardView",
     
     components: {
         HeaderComponent,
-        // CalendarComponent,
-        D3BarChart,
-        D3PieChart,
-        D3LineChart,
-        DonutPie,
-        loginComponent
+        lavadoraDashboard, 
+        loginComponent,
     },
+    
     data: () => ({
         url: process.env.VUE_APP_SERVICE_URL_API,
-        "reload":true,
+        reload:true,
         activarReboot: false,
-        getDatos: [],
-        getClientesFrec: [],
-        getClientesid: [],
-        cantidadTotalPrendas: 0,
-        cantidadTotalRestantes: 0,
-        cantidadTotalTerminadas: 0,
-        prendasEntrantes_config: {
-            key: 'salid',
-            value: 'entr',
-            color: {scheme: 'schemeTableau10'},
-            radius: {inner: 0},
+
+        fechaEntregaColor: '',
+        cliente: '',
+
+        ordenesAct: [],
+        lavadoras: [],
+        sinData: true,
+
+        currentSlide: 0,
+        entradasSalidas: [],
+        chartOptionsSemiDonut: {
+            chart: {
+                type: 'donut',
+            },
+            labels: ["Entregadas", "Llegada"],
+            colors:['#16F702', '#F70202'],
+            plotOptions: {
+                pie: {
+                startAngle: -90,
+                endAngle: 90,
+                offsetY: 10
+                }
+            },
+            grid: {
+                padding: {
+                bottom: -80
+                }
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+                }
+            }]
         },
 
-
-        dp: 90,
-        value: 33.333333333,
-        max: 50,
-        chart_title: 'Titulo de la barra',
-        chart_source: 'Datos',
-        chart_data: [
-            //...
-            {hours: 1892, production: 2541, year: '2013'},
-            {hours: 1273, production: 2541, year: '2014'},
-            {hours: 1234, production: 2541, year: '2015'},
-            {hours: 3676, production: 9613, year: '2016'},
-            {hours: 3578, production: 6315, year: '2017'},
-            {hours: 4323, production: 2541, year: '2018'},
-            {hours: 4567, production: 2541, year: '2019'},
-            {hours: 4687, production: 2541, year: '2020'},
-            {hours: 4343, production: 2541, year: '2021'},
-            {hours: 3443, production: 2541, year: '2022'},
-            {hours: 5000, production: 2541, year: '2023'},
-        ],
-        chart_config: {
-            key: 'year',
-            currentKey: '2004',
-            values: ['hours'],
-            axis: {
-                yTicks: 3
+        seriesMPA: [],
+        chartOptionsMPA: {
+            chart: {
+                type: 'bar',
+                height: 100
             },
-            color: {
-                default: '#222f3e',
-                current: '#41B882'
+            colors:['#0d6efd'],
+            plotOptions: {
+                bar: {
+                    orderRadius: 4,
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: ['Mes Pasado', 'Mes Actual' ],
             }
-        },  
-        chart_dataD: [
-            {hours: 20, name: 'Lorem'},
-            {hours: 30, name: 'Ipsum'},
-            {hours: 31, name: 'Dolor'},
-            {hours: 15, name: 'Sit'},
-        ],
-        chart_configD: {
-            key: 'name',
-            value: 'hours',
-            color: {scheme: 'schemeTableau10'},
-            radius: {inner: 80},
+        },
+
+        barCodeActual: [],
+        barCodeAnterior: [],
+        barCodeNameCli: [],
+        seriesBarCode: [],
+        chartOptionsBarCode: {
+            chart: {
+              height: 350,
+              type: 'line',
+            },
+            stroke: {
+              width: [0, 4]
+            },
+            title: {
+              text: 'Visitas'
+            },
+            dataLabels: {
+              enabled: true,
+              enabledOnSeries: [1]
+            },
+            labels: [],
+
+            xaxis: {
+              type: 'text'
+            },
+            yaxis: [{
+              title: {
+                text: 'Mes Actual',
+              },
             
-
+            }, {
+              opposite: true,
+              title: {
+                text: 'Mes Anterior'
+              }
+            }]
         },
-        count: 1,
-        chart_dataL: [
-            {hours: 238, production: 134, date: 2000},
-            {hours: 938, production: 478, date: 2001},
-            {hours: 1832, production: 1392, date: 2002},
-            {hours: 2092, production: 2343, date: 2003},
-            {hours: 2847, production: 2346, date: 2004},
-            {hours: 2576, production: 2233, date: 2005},
-            {hours: 2524, production: 2325, date: 2006},
-            {hours: 1648, production: 2456, date: 2007},
-            {hours: 2479, production: 2329, date: 2008},
-            {hours: 3200, production: 2438, date: 2009}
-        ],
-        chart_configL: {
-            values: ['hours', 'production'],
-            date: {
-                key: 'date',
-                inputFormat: '%Y',
-                outputFormat: '%Y',
+
+        seriesRadial: [],
+        chartOptionsRadial: {
+            chart: {
+              height: 350,
+              type: 'radialBar',
+              toolbar: {
+                show: true
+              }
             },
-            tooltip: {
-                labels: ['Total hours', 'Total production']
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 225,
+                 hollow: {
+                  margin: 0,
+                  size: '70%',
+                  background: '#fff',
+                  image: undefined,
+                  imageOffsetX: 0,
+                  imageOffsetY: 0,
+                  position: 'front',
+                  dropShadow: {
+                    enabled: true,
+                    top: 3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.24
+                  }
+                },
+                track: {
+                  background: '#fff',
+                  strokeWidth: '67%',
+                  margin: 0, // margin is in pixels
+                  dropShadow: {
+                    enabled: true,
+                    top: -3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.35
+                  }
+                },
+            
+                dataLabels: {
+                  show: true,
+                  name: {
+                    offsetY: -10,
+                    show: true,
+                    color: '#888',
+                    fontSize: '17px'
+                  },
+                  value: {
+                    formatter: function(val) {
+                      return parseInt(val);
+                    },
+                    color: '#111',
+                    fontSize: '36px',
+                    show: true,
+                  }
+                }
+              }
             },
-            axis: {
-                yFormat: '.1s',
-                yTicks: 6,
-                yTitle: 'Lorem ipsum',
-                xTicks: 5,
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shade: 'dark',
+                type: 'horizontal',
+                shadeIntensity: 0.5,
+                gradientToColors: ['#007bff'],
+                inverseColors: true,
+                opacityFrom: 1,
+                opacityTo: 1,
+                stops: [0, 100]
+              }
             },
-            color: {
-            scheme: ['#41B882', '#222f3e']
+            stroke: {
+              lineCap: 'round'
             },
-            transition: {
-                ease: 'easeBounceOut',
-                duration: 1000
+            labels: ['Avance'],
+        },
+
+
+        seriesLine: [],
+        chartOptionsLine: {
+            chart: {
+              height: 350,
+              type: 'line',
+              zoom: {
+                enabled: false
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            colors: ['#007bff'],
+            stroke: {
+              curve: 'straight'
+            },
+            title: {
+              text: 'Proceso de Prendas',
+              align: 'rigth'
+            },
+            grid: {
+              row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+              },
+            },
+            xaxis: {
+              categories: ['Restante', 'Terminados'],
             }
         },
-        chart_dataH: [
-        {vue: 20, d3: 62, category: 'lorem'},
-        {vue: 28, d3: 47, category: 'ipsum'},
-        {vue: 35, d3: 36, category: 'dolor'},
-        {vue: 60, d3: 24, category: 'sit'},
-        {vue: 65, d3: 18, category: 'amet'},
-      ],
-      chart_configH: {
-        key: 'category',
-        values: ['vue', 'd3'],
-        orientation: 'horizontal',
-        color: {
-          keys: {
-            vue: '#41b882',
-            d3: '#b35899', 
-          },
-        },
-      },
-      chart_dataHD: [
-        {vue: 20, category: 'lorem'},
-        {vue: 28, category: 'ipsum'},
-        {vue: 35, category: 'dolor'},
-      ],
-      
-      chart_configHD: {
-        key: 'category',
-        values: ['vue'],
-        orientation: 'horizontal',
-        color: {
-          keys: {
-            vue: '#0d6efd',
-          },
-        },
-      },
+
+        
     }),
     created(){
         refreshSession(this.url ,this.$session.get('token')).then( data => {
             this.$session.start()
             this.$session.set('token', data.datos.token)
         })
-        this.dataClientes()
     },
     mounted(){
-        // console.log(this.getClientesFrec)
+        this.dataDash()
+        this.Lavadoras()
+        this.getOrdenes()
+        this.chartOptionsBarCode.labels = this.barCodeNameCli
         setTimeout(() => {
+            this.getDetalles(this.ordenesAct[Math.floor(Math.random() * this.ordenesAct.length)])
             this.reload = false
         }, 4000);
+
+        
+        setInterval(() => {
+            this.getDetalles(this.ordenesAct[Math.floor(Math.random() * this.ordenesAct.length)])
+        }, 600000);
+            
         
     },
     methods:{
@@ -425,58 +354,89 @@ export default {
                 this.$session.set('token', data.datos.token)
             }) 
         },
-        frecuencia(){
-            // Crea un objeto contador vacío
-            const counter = {};
-
-            // Itera sobre el array
-            this.getClientesid.forEach((item) => {
-            // Si el elemento ya está en el objeto contador, incrementa su valor
-            if (counter[item]) {
-                counter[item]++;
-            } else {
-                // Si no está en el objeto contador, inicializa su valor a 1
-                counter[item] = 1;
-            }
-            });
-
-            // Muestra los resultados
-            console.log(this.getClientesid)
-            for (const [key, value] of Object.entries(counter)) {
-            console.log(`${key} se repite ${value} veces`);
-            }
-
+        previousSlide() {
+            this.currentSlide--
         },
-        dataClientes(){
-            this.getDatos = []
-            fetchApi(this.url+`orden/consulta`, 'GET', this.$session.get('token'))
+        nextSlide() {
+            this.currentSlide++
+        },
+        dataDash(){
+            this.entradasSalidas = []
+            this.seriesMPA = []
+            fetchApi(this.url+`orden/dashboard`, 'GET', this.$session.get('token'))
             .then(data => {
-                
                 if(data.status == 401){ this.activarReboot = true }
                 if(data.status == 200){
-                    if(data.datos.length != 0){
-                        let t = this
-                        data.datos.forEach( value => {
-                            this.cantidadTotalPrendas += value.cantidadPrendas
-                            fetchApi(this.url+`orden/dashboard/${value.idOrdenPrenda}`, 'GET', this.$session.get('token'))
-                            .then(dt => {
-                                if(dt.status == 200){
-                                    t.getClientesFrec.push({"id": dt.datos.idCliente, "nombre":dt.datos.cliente })
-                                    t.getClientesid.push(dt.datos.idCliente)
-                                    t.cantidadTotalRestantes += dt.datos.cantidadRestante
-                                    t.cantidadTotalTerminadas += dt.datos.cantidadTerminados 
-                                    // t.getDatos.push({"cantidadTerminados": dt.datos.cantidadTerminados, "cantidadRestante": dt.datos.cantidadRestante, "avance": dt.datos.avance, "cliente": dt.datos.cliente, "cantidadEntrante": data.datos.cantidad})
-                                }
-                            })
-                        })
-                    }
-                    
+                    // this.entradasSalidas = 
+                    this.entradasSalidas = [data.datos.entregas, data.datos.entradasMes]
+                    this.seriesMPA.push({ data: [data.datos.entradasMesAnterior, data.datos.entradasMes]})
+                    data.datos.clientes.forEach( cli => {
+                        this.barCodeActual.push(cli.visitasMes)
+                        this.barCodeAnterior.push(cli.visitasMesAnterior)
+                        this.barCodeNameCli.push(cli.cliente)
+                    });
+
+                    this.seriesBarCode = [{
+                        name: 'Visitas del mes actual',
+                        type: 'column',
+                        data: this.barCodeActual
+                    }, {
+                        name: 'Visitas del mes anterior',
+                        type: 'line',
+                        data: this.barCodeAnterior
+                    }]
                 }else{
                     this.openNotification('Ocurrio un error al obtener los datos', `${data.mensaje}`, 'danger', 'top-center',`<box-icon name='bug' color="#fff"></box-icon>`)
                 }
-                
+
             })
             .catch(err => console.log(err))
+        },
+        async Lavadoras(){
+            fetchApi(this.url+'lavadora/findAll', 'GET', this.$session.get('token'))
+            .then(data => {
+                this.lavadoras = []
+                if(data.status == 401){ this.activarReboot = true }
+                if(data.status == 200){
+                    this.lavadoras = data.datos
+                    if(this.lavadoras.length == 0){
+                        this.sinData == false
+                    }
+                }else{
+                    this.openNotification('Ocurrio un error al obtener los datos', `${data.mensaje}`, 'danger', 'top-center',`<box-icon name='bug' color="#fff"></box-icon>`)
+                }
+            })
+        },
+        async getOrdenes(){
+            fetchApi(this.url+`orden/findByEstado/9`, 'GET', this.$session.get('token'))
+            .then(data => {
+                if(data.status == 401){ this.activarReboot = true }
+                if(data.status == 200){
+                    data.datos.forEach(dt => {
+                        this.ordenesAct.push(dt.idOrden)
+                    });
+                }
+            })
+        },
+        async getDetalles(idOrdenLavado){
+            this.seriesRadial = []
+            this.seriesLine = []
+            fetchApi(this.url+`orden/dashboard/${idOrdenLavado}`, 'GET', this.$session.get('token'))
+            .then(data => {
+                if(data.status == 401){ this.activarReboot = true }
+                if(data.status == 200){
+                    this.seriesRadial = [data.datos.avance]
+                    this.seriesLine.push({name: "Procesos", data: [data.datos.cantidadRestante, data.datos.cantidadTerminados]})
+                    this.cliente = data.datos.cliente
+                    let fechaEstablecida = new Date(data.datos.fechaEntrega.split('T')[0])
+                    let fechaActual = new Date()
+                    if (fechaActual > fechaEstablecida) {
+                        this.fechaEntregaColor = "#d9534f"
+                    }else{
+                        this.fechaEntregaColor = "#0d6efd"
+                    }
+                }
+            })
         },
     }
 }
@@ -490,8 +450,27 @@ body {
 .card{
     border-radius: 1rem;
 }
-.cardKM{
-    display: grid;
-    place-items: center;
+</style>
+
+<style scoped>
+.slider {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.cardsContent {
+  display: flex;
+  width: 100%;
+  height: 20rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.controls {
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  width: 100%
 }
 </style>
