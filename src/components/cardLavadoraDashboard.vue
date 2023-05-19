@@ -1,8 +1,9 @@
 <template>
     <div>
-        <b-card :title="data.nombre" :sub-title="tipoLavado" v-if="reload" style="min-width: 20rem;">
+        <b-card :title="data.nombre" :sub-title="tipoLavado" v-if="reload">
             <apexchart-all type="donut" :options="chartOptionsG" :series="series" v-if="data.idEstado == 1"></apexchart-all>
             <apexchart-all type="donut" :options="chartOptionsR" :series="series" v-if="data.idEstado == 7"></apexchart-all>
+            <apexchart-all type="donut" :options="chartOptionsY" :series="series" v-if="data.idEstado == 6"></apexchart-all>
         </b-card>
         <b-card no-body class="overflow-hidden" v-else>
             <v-skeleton-loader
@@ -32,10 +33,10 @@ export default {
             chart: {
                 type: 'donut',
             },
-            colors:['#F70202'],
+            colors:['#fb5f4f'],
             labels: [""],
             dataLabels: {
-                enabled: true,
+                enabled: false,
             },
             responsive: [{
                 breakpoint: 240,
@@ -56,10 +57,34 @@ export default {
             chart: {
                 type: 'donut',
             },
-            colors:['#16F702'],
+            colors:['#4eeba2'],
             labels: [""],
             dataLabels: {
-              enabled: true
+              enabled: false
+            },
+            responsive: [{
+                breakpoint: 240,
+                options: {
+                    chart: {
+                        width: 0,
+                    },
+                    legend: {
+                        position: 'center',
+                            offsetY: 0,
+                            height: 50,
+                    }
+                }
+            }]
+        },
+
+        chartOptionsY: {
+            chart: {
+                type: 'donut',
+            },
+            colors:['#fddb58'],
+            labels: [""],
+            dataLabels: {
+              enabled: false
             },
             responsive: [{
                 breakpoint: 240,

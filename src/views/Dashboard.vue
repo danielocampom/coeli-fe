@@ -2,44 +2,100 @@
     <div>
         <HeaderComponent/>
         <br>
-        
         <b-row class="mt-5 p-4">
-            <b-col>
-                <b-card :title="cliente" :style="{ 'border-left': `solid 5px ${fechaEntregaColor} !important` }">
-                    <b-row>
-                        <b-col lg="3" md="6" sm="12">
-                            <apexchart-all v-if="seriesRadial.length > 0" type="radialBar" height="350" :options="chartOptionsRadial" :series="seriesRadial"></apexchart-all>
-                            <b-card no-body class="overflow-hidden" v-else>
-                                <v-skeleton-loader
-                                    height="300"
-                                    type="image, image, image"
-                                >
-                                </v-skeleton-loader>
-                            </b-card>
-                        </b-col>
-                        <b-col lg="9" md="6" sm="12">
-                            <apexchart-all v-if="seriesLine.length > 0" type="line" height="350" :options="chartOptionsLine" :series="seriesLine"></apexchart-all>
-                            <b-card no-body class="overflow-hidden" v-else>
-                                <v-skeleton-loader
-                                    height="300"
-                                    type="image, image, image"
-                                >
-                                </v-skeleton-loader>
-                            </b-card>
-                        </b-col>
-                    </b-row>
+            <b-col lg="3" md="4" sm="12">
+                <b-card title="Entregas" v-if="seriesEntregas.length > 0">
+                    <apexchart-all type="donut" height="280" :options="chartOptionsEntregas" :series="seriesEntregas"></apexchart-all>
+                </b-card>
+                <b-card no-body class="overflow-hidden" v-else>
+                    <v-skeleton-loader
+                        height="300"
+                        type="image, image, image"
+                    >
+                    </v-skeleton-loader>
+                </b-card>
+            </b-col>
+            <b-col lg="9" md="4" sm="12">
+              <b-row >
+                <b-col>
+                    <b-card :title="cliente" :style="{ 'border-left': `solid 5px ${fechaEntregaColor} !important` }">
+                        <b-row>
+                            <b-col lg="3" md="6" sm="12">
+                                <apexchart-all v-if="seriesRadial.length > 0" type="radialBar" height="350" :options="chartOptionsRadial" :series="seriesRadial"></apexchart-all>
+                                <b-card no-body class="overflow-hidden" v-else>
+                                    <v-skeleton-loader
+                                        height="300"
+                                        type="image, image, image"
+                                    >
+                                    </v-skeleton-loader>
+                                </b-card>
+                            </b-col>
+                            <b-col lg="9" md="6" sm="12">
+                                <apexchart-all v-if="seriesLine.length > 0" type="line" height="350" :options="chartOptionsLine" :series="seriesLine"></apexchart-all>
+                                <b-card no-body class="overflow-hidden" v-else>
+                                    <v-skeleton-loader
+                                        height="300"
+                                        type="image, image, image"
+                                    >
+                                    </v-skeleton-loader>
+                                </b-card>
+                            </b-col>
+                        </b-row>
+                    </b-card>
+                </b-col>
+              </b-row>
+            </b-col>
+            <b-col lg="3" md="4" sm="6">
+                <b-card title="Visita clientes" v-if="seriesVisitas.length > 0">
+                  <apexchart-all type="bar" height="280" :options="chartOptionsVisitas" :series="seriesVisitas"></apexchart-all>
+                </b-card>
+                <b-card no-body class="overflow-hidden" v-else>
+                    <v-skeleton-loader
+                        height="300"
+                        type="image, image, image"
+                    >
+                    </v-skeleton-loader>
+                </b-card>
+            </b-col>
+            <b-col lg="3" md="4" sm="6">
+                <b-card title="Ingerso prendas mensuales" v-if="seriesPrendas.length > 0">
+                  <apexchart-all type="bar" height="280" :options="chartOptionsPrendas" :series="seriesPrendas"></apexchart-all>
+                </b-card> 
+                <b-card no-body class="overflow-hidden" v-else>
+                    <v-skeleton-loader
+                        height="300"
+                        type="image, image, image"
+                    >
+                    </v-skeleton-loader>
+                </b-card>
+            </b-col>
+            <b-col lg="3" md="4" sm="6">
+                <b-card title="Ingreso prendas anuales" v-if="seriesPrendasAnuales.length > 0">
+                    <apexchart-all type="bar" height="280" :options="chartOptionsPrendasAnuales" :series="seriesPrendasAnuales"></apexchart-all>
+                </b-card>
+                <b-card no-body class="overflow-hidden" v-else>
+                    <v-skeleton-loader
+                        height="300"
+                        type="image, image, image"
+                    >
+                    </v-skeleton-loader>
                 </b-card>
             </b-col>
         </b-row>
-        <div class="slider mt-5" v-if="sinData">
-            <div class="cardsContent" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-                <lavadoraDashboard style="min-width: 20rem; margin: 1rem;" v-for="(lavadora, i) in lavadoras" :key="i" :data="{nombre: lavadora.lavadora, tipoLavado: lavadora.tipoLavado, idEstado: lavadora.idEstado}"></lavadoraDashboard>
-            </div>
-            <div class="controls">
-                <button @click="previousSlide" :disabled="currentSlide === 0"><box-icon name='skip-previous'></box-icon></button>
-                <button @click="nextSlide" :disabled="currentSlide === lavadoras.length - 1"><box-icon name='skip-next'></box-icon></button>
-            </div>
-        </div>
+        
+        <!-- <div class="slider mt-5" v-if="sinData"> -->
+            <!-- <div class="cardsContent" :style="{ transform: `translateX(-${currentSlide * 100}%)` }"> -->
+              <b-row>
+                <b-col lg="2" md="4" sm="6" v-for="(lavadora, i) in lavadoras" :key="i">
+                  <lavadoraDashboard style="min-width: 10rem;min-height: 10rem;" class="m-1"  :data="{nombre: lavadora.lavadora, tipoLavado: lavadora.tipoLavado, idEstado: lavadora.idEstado}"></lavadoraDashboard>
+                </b-col>
+              </b-row>
+            <!-- </div> -->
+            <!-- <div class="controls"> -->
+                <!-- <button @click="previousSlide" :disabled="currentSlide === 0"><box-icon name='skip-previous'></box-icon></button> -->
+                <!-- <button @click="nextSlide" :disabled="currentSlide === lavadoras.length - 1"><box-icon name='skip-next'></box-icon></button> -->
+            <!-- </div> -->
+        <!-- </div> -->
         
         <v-row class="mt-1 p-4" v-if="reload">
             <v-col sm="12" md="4" lg="3" class="mt-4">
@@ -70,6 +126,7 @@
                 </b-card>
             </v-col>
         </v-row>
+        
         <b-row class="mt-1 p-4" v-else>
             <b-col class="mt-4" lg="3" md="6" sm="12">
                 <b-card title="Ordenes entregadas">
@@ -97,6 +154,7 @@ import HeaderComponent from '@/components/Header.vue';
 import lavadoraDashboard from '@/components/cardLavadoraDashboard.vue';
 import loginComponent from '@/components/cardLogin.vue';
 import { refreshSession, fetchApi } from "@/service/service.js"
+import numeral from 'numeral';
 
 export default {
     name:"DashboardView",
@@ -119,6 +177,18 @@ export default {
         lavadoras: [],
         sinData: true,
 
+        seriesEntregas: [],
+        chartOptionsEntregas: {},
+
+        seriesVisitas: [],
+        chartOptionsVisitas: {},
+        
+        seriesPrendas: [],
+        chartOptionsPrendas: {},
+
+        seriesPrendasAnuales: [],
+        chartOptionsPrendasAnuales: {},
+
         currentSlide: 0,
         entradasSalidas: [],
         chartOptionsSemiDonut: {
@@ -126,7 +196,7 @@ export default {
                 type: 'donut',
             },
             labels: ["Entregadas", "Llegada"],
-            colors:['#16F702', '#F70202'],
+            colors:['#4eeba2', '#fb5f4f'],
             plotOptions: {
                 pie: {
                 startAngle: -90,
@@ -158,7 +228,7 @@ export default {
                 type: 'bar',
                 height: 100
             },
-            colors:['#0d6efd'],
+            colors:['#4eeba2'],
             plotOptions: {
                 bar: {
                     orderRadius: 4,
@@ -303,7 +373,7 @@ export default {
             dataLabels: {
               enabled: false
             },
-            colors: ['#007bff'],
+            colors: ['#4eeba2'],
             stroke: {
               curve: 'straight'
             },
@@ -335,6 +405,8 @@ export default {
         this.Lavadoras()
         this.getOrdenes()
         this.chartOptionsBarCode.labels = this.barCodeNameCli
+        
+
         setTimeout(() => {
             this.getDetalles(this.ordenesAct[Math.floor(Math.random() * this.ordenesAct.length)])
             this.reload = false
@@ -354,6 +426,19 @@ export default {
                 this.$session.set('token', data.datos.token)
             }) 
         },
+        fullScren(){
+          let entregasCard = document.querySelector("#entregasCard")
+
+          if (entregasCard.requestFullscreen) {
+            entregasCard.requestFullscreen();
+          } else if (entregasCard.mozRequestFullScreen) {
+            entregasCard.mozRequestFullScreen();
+          } else if (entregasCard.webkitRequestFullscreen) {
+            entregasCard.webkitRequestFullscreen();
+          } else if (entregasCard.msRequestFullscreen) {
+            entregasCard.msRequestFullscreen();
+          }
+        },
         previousSlide() {
             this.currentSlide--
         },
@@ -363,12 +448,175 @@ export default {
         dataDash(){
             this.entradasSalidas = []
             this.seriesMPA = []
+            this.seriesEntregas = []
+            this.seriesVisitas = []
+            this.seriesPrendas = []
+            this.seriesPrendasAnuales = []
+            this.series = []
             fetchApi(this.url+`orden/dashboard`, 'GET', this.$session.get('token'))
             .then(data => {
                 if(data.status == 401){ this.activarReboot = true }
                 if(data.status == 200){
-                    // this.entradasSalidas = 
+                  
+                    this.seriesEntregas = [data.datos.entregasTiempo, data.datos.entregasDestiempo]
+                    let total = data.datos.entregasTiempo + data.datos.entregasDestiempo
+                    let totalVisitas = data.datos.numClientesMes + data.datos.numClientesAnio
+
+                    let totalPrendas = data.datos.numPrendasMes + data.datos.numCanceladasMes
+                    let totalPrendasAnuales = data.datos.numPrendasAnio + data.datos.numCanceladasAnio
+
+
+                    this.chartOptionsEntregas ={
+                      chart: {
+                        type: 'donut',
+                      },
+                      labels: ["a tiempo", "a destiempo"],
+                      colors:['#4eeba2', '#fb5f4f'],
+
+                      title: {
+                        text: `${numeral(total).format('0,0')}`,
+                        offsetX: 0,
+                        style: {
+                          fontSize: '24px',
+                        }
+                      },
+                      subtitle: {
+                        text: 'Entreas Totales',
+                        offsetX: 0,
+                        style: {
+                          fontSize: '14px',
+                        }
+                      },
+                      responsive: [{
+                        breakpoint: 480,
+                        options: {
+                          chart: {
+                            width: 200
+                          },
+                          legend: {
+                            position: 'bottom'
+                          }
+                        }
+                      }]
+                    }
+
+                    this.chartOptionsVisitas = {
+
+                      chart: {
+                        type: 'bar',
+                        height: 280
+                      },
+                      labels: ["a tiempo", "a destiempo"],
+                      colors:['#4eeba2', '#fb5f4f'],
+                      title: {
+                        text: `${numeral(totalVisitas).format('0,0')}`,
+                        offsetX: 0,
+                        style: {
+                          fontSize: '24px',
+                        }
+                      },
+                      
+                      subtitle: {
+                        text: 'Vistas Totales',
+                        offsetX: 0,
+                        style: {
+                          fontSize: '14px',
+                        }
+                      },
+                      plotOptions: {
+                        bar: {
+                          borderRadius: 4,
+                          horizontal: true,
+                        }
+                      },
+                      dataLabels: {
+                        enabled: false
+                      },
+                      xaxis: {
+                        categories: ['Mes', 'Anual' ],
+                      }
+                    },
+
+                    this.chartOptionsPrendas = {
+                      chart: {
+                        type: 'bar',
+                        height: 280
+                      },
+                      labels: ["Completas", "Canceladas"],
+                      colors:['#4eeba2', '#fb5f4f'],
+                      title: {
+                        text: `${numeral(totalPrendas).format('0,0')}`,
+                        offsetX: 0,
+                        style: {
+                          fontSize: '24px',
+                        }
+                      },
+                      
+                      subtitle: {
+                        text: 'Prendas Totales',
+                        offsetX: 0,
+                        style: {
+                          fontSize: '14px',
+                        }
+                      },
+                      plotOptions: {
+                        bar: {
+                          borderRadius: 4,
+                          horizontal: true,
+                        }
+                      },
+                      dataLabels: {
+                        enabled: false
+                      },
+                      xaxis: {
+                        categories: ['Completas', 'Canceladas' ],
+
+                      }
+                    },
+
+                    this.chartOptionsPrendasAnuales = {
+
+                      chart: {
+                        type: 'bar',
+                        height: 280
+                      },
+                      labels: ["Completas", "Canceladas"],
+                      colors:['#4eeba2', '#fb5f4f'],
+                      title: {
+                        text: `${numeral(totalPrendasAnuales).format('0,0')}`,
+                        offsetX: 0,
+                        style: {
+                          fontSize: '24px',
+                        }
+                      },
+                      
+                      subtitle: {
+                        text: 'Prendas Totales',
+                        offsetX: 0,
+                        style: {
+                          fontSize: '14px',
+                        }
+                      },
+                      plotOptions: {
+                        bar: {
+                          borderRadius: 4,
+                          horizontal: true,
+                        }
+                      },
+                      dataLabels: {
+                        enabled: false
+                      },
+                      xaxis: {
+                        categories: ['Completas', 'Canceladas' ],
+                      }
+
+                    },
+                    
                     this.entradasSalidas = [data.datos.entregas, data.datos.entradasMes]
+                    this.seriesVisitas.push({ data: [data.datos.numClientesMes, data.datos.numClientesAnio]})
+                    this.seriesPrendas.push({ data: [data.datos.numPrendasMes, data.datos.numCanceladasMes]})
+                    this.seriesPrendasAnuales.push({ data: [data.datos.numPrendasAnio, data.datos.numCanceladasAnio]})
+
                     this.seriesMPA.push({ data: [data.datos.entradasMesAnterior, data.datos.entradasMes]})
                     data.datos.clientes.forEach( cli => {
                         this.barCodeActual.push(cli.visitasMes)
